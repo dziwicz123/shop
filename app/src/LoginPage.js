@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  MDBBtn,
   MDBContainer,
   MDBRow,
   MDBCol,
@@ -9,6 +8,8 @@ import {
   MDBInput,
 } from "mdb-react-ui-kit";
 import "./LoginPage.css";
+import { Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 function LoginPage() {
   return (
     <MDBContainer fluid>
@@ -53,9 +54,9 @@ function LoginPage() {
                 {" "}
                 <p className="mb-0">
                   Don't have an account?{" "}
-                  <a href="#!" className="text-white-50 fw-bold">
+                  <Link to="/register" className="text-white-50 fw-bold">
                     Sign Up
-                  </a>
+                  </Link>
                 </p>
               </div>
             </MDBCardBody>
