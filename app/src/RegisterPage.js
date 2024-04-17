@@ -1,107 +1,145 @@
-import React from "react";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBInput,
-} from "mdb-react-ui-kit";
-import "./RegisterPage.css";
+import React, { useState } from "react";
+import { Form, Button} from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
-function RegisterPage() {
+
+const RegisterPage = () => {
+  const [validated, setValidated] = useState(false);
+  const [formData, setFormData] = useState({
+    formFirstName: "",
+    formLastName: "",
+    formEmail: "",
+    formPhone: "",
+    formPassword: "",
+    formConfirmPassword: ""
+  });
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+    setValidated(true);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
   return (
-    <MDBContainer fluid className="p-3">
-      <MDBRow className="d-flex justify-content-center align-items-center h-100">
-        <MDBCol col="12">
-          <MDBCard
-            className="bg-dark text-white my-5 mx-auto"
-            style={{ borderRadius: "1rem", maxWidth: "900px" }} // Adjusted the width to accommodate two columns
-          >
-            <MDBCardBody className="p-5 d-flex flex-column align-items-center mx-auto w-100">
+    <div className="container-fluid p-3">
+      <div className="row justify-content-center align-items-center h-100">
+        <div className="col-12">
+          <div className="card bg-dark text-white my-5 mx-auto" style={{ borderRadius: "1rem", maxWidth: "900px" }}>
+            <div className="card-body p-5 d-flex flex-column align-items-center mx-auto w-100">
               <h2 className="fw-bold mb-2 text-uppercase">Register</h2>
               <p className="text-white-50 mb-5">
                 Please enter your details to create an account.
               </p>
-
-              <MDBRow
-                style={{ maxWidth: "1200px", width: "100%" }}
-                className="d-flex justify-content-center align-items-center h-100"
-              >
-                {/* First column */}
-                <MDBCol md="6">
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    labelClass="text-white"
-                    label="First Name"
-                    id="formFirstName"
+              <Form noValidate validated={validated} onSubmit={handleSubmit} className="row g-3 w-100">
+                <div className="col-md-6">
+                  <label htmlFor="formFirstName" title="First Name">First Name</label>
+                  <Form.Control
                     type="text"
-                    size="lg"
+                    placeholder="First Name"
+                    name="formFirstName"
+                    value={formData.formFirstName}
+                    onChange={handleChange}
+                    required
+                    isInvalid={validated && !formData.formFirstName}
                   />
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    labelClass="text-white"
-                    label="Email Address"
-                    id="formEmail"
+                  <Form.Control.Feedback type="invalid">First name is required</Form.Control.Feedback>
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="formLastName" title="Last Name">Last Name</label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Last Name"
+                    name="formLastName"
+                    value={formData.formLastName}
+                    onChange={handleChange}
+                    required
+                    isInvalid={validated && !formData.formLastName}
+                  />
+                  <Form.Control.Feedback type="invalid">Last name is required</Form.Control.Feedback>
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="formEmail" title="Email Address">Email Address</label>
+                  <Form.Control
                     type="email"
-                    size="lg"
+                    placeholder="Email Address"
+                    name="formEmail"
+                    value={formData.formEmail}
+                    onChange={handleChange}
+                    required
+                    isInvalid={validated && !/^\S+@\S+\.\S+$/.test(formData.formEmail)}
                   />
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    labelClass="text-white"
-                    label="Password"
-                    id="formPassword"
-                    type="password"
-                    size="lg"
-                  />
-                </MDBCol>
-
-                {/* Second column */}
-                <MDBCol md="6">
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    labelClass="text-white"
-                    label="Last Name"
-                    id="formLastName"
-                    type="text"
-                    size="lg"
-                  />
-
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    labelClass="text-white"
-                    label="Phone Number"
-                    id="formPhone"
+                  <Form.Control.Feedback type="invalid">Please enter a valid email address.</Form.Control.Feedback>
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="formPhone" title="Phone Number">Phone Number</label>
+                  <Form.Control
                     type="tel"
-                    size="lg"
+                    placeholder="Phone Number"
+                    name="formPhone"
+                    value={formData.formPhone}
+                    onChange={handleChange}
+                    required
+                    pattern="^\d{9}$"
+                    isInvalid={validated && !/^\d{9}$/.test(formData.formPhone)}
                   />
-                  <MDBInput
-                    wrapperClass="mb-4"
-                    labelClass="text-white"
-                    label="Confirm Password"
-                    id="formConfirmPassword"
+                  <Form.Control.Feedback type="invalid">Phone number must be 9 digits</Form.Control.Feedback>
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="formPassword" title="Password">Password</label>
+                  <Form.Control
                     type="password"
-                    size="lg"
+                    placeholder="Password"
+                    name="formPassword"
+                    value={formData.formPassword}
+                    onChange={handleChange}
+                    required
+                    isInvalid={validated && !formData.formPassword}
                   />
-                </MDBCol>
-              </MDBRow>
-              <div className="d-grid gap-2 col-6 mx-auto">
-                <button className="btn-register">Register</button>
-              </div>
-              <div className="text-center pt-3">
-                <p className="mb-0">
-                  Already have an account?{" "}
-                  <Link to="/login" className="text-white-50 fw-bold">
-                    Login
-                  </Link>
-                </p>
-              </div>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-      </MDBRow>
-    </MDBContainer>
+                  <Form.Control.Feedback type="invalid">Password is required</Form.Control.Feedback>
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="formConfirmPassword" title="Confirm Password">Confirm Password</label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Confirm Password"
+                    name="formConfirmPassword"
+                    value={formData.formConfirmPassword}
+                    onChange={handleChange}
+                    required
+                    pattern={formData.formPassword}
+                    isInvalid={validated && formData.formConfirmPassword !== formData.formPassword}
+                  />
+                  <Form.Control.Feedback type="invalid">Passwords must match</Form.Control.Feedback>
+                </div>
+                <div className="d-grid gap-2 col-6 mx-auto">
+                  <Button type="submit" className="btn btn-primary">Register</Button>
+                </div>
+                <div className="text-center pt-3">
+                  <p className="mb-0">
+                    Already have an account?{" "}
+                    <Link to="/login" className="text-white-50 fw-bold">
+                      Login
+                    </Link>
+                  </p>
+                </div>
+              </Form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
-}
+};
 
 export default RegisterPage;
