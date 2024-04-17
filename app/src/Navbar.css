@@ -1,29 +1,6 @@
-/* Ensure form elements are displayed inline */
-.md-navbar .form-inline {
-    display: flex;
-    align-items: center;
-  }
-  
-  /* Adjust the margin of the search button if needed */
-  .md-navbar .btn-outline-primary {
-    margin-left: -1px; /* Aligns the button with the input field */
-    padding: .375rem .75rem; /* Match the input field height */
-  }
-  
-  /* Make the input field and the button the same height */
-  .md-navbar .form-control,
-  .md-navbar .btn-outline-primary {
-    height: 38px;
-  }
-  
-  /* Optional: Add styles to remove the default border radius of the input field on the side attached to the button */
-  .md-navbar .form-control {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  
-  .md-navbar .btn-outline-primary {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  
+.navbar-light .navbar-toggler-icon{
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+.navbar-light .navbar-toggler{
+  border: 1px solid lightgray;
+}

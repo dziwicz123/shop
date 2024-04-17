@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faShoppingCart,faSearch} from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "./Navbar.css"
 const AppNavbar = () => {
   return (
-    <Navbar style={{ background: '#2c3e50', borderRadius: '8px', padding: '10px 20px' }} expand="lg">
+    <Navbar style={{ background: '#2c3e50', padding: '10px 20px' }} expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/" style={{ color: 'white' }}>Logo</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
