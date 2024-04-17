@@ -46,20 +46,9 @@ function LoginPage() {
                   Forgot password?
                 </a>
               </p>
-              <MDBBtn
-                outline
-                className="mx-2 px-5"
-                color="white"
-                size="lg"
-                style={{
-                  width: "100%",
-                  backgroundColor: "#1266F1",
-                  boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-                  margin: "0 0 1rem 0",
-                }}
-              >
-                Login
-              </MDBBtn>
+              <div className="d-grid gap-2 col-6 mx-auto">
+                <button className="btn-login">Login</button>
+              </div>
               <div style={{ textAlign: "center", marginTop: "1rem" }}>
                 {" "}
                 <p className="mb-0">
