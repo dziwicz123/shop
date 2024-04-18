@@ -25,4 +25,11 @@ body {
   .btn-register:hover {
     background-color: #0d6efd; /* Ciemniejszy niebieski przy hover */
   }
-  
+  .label-fade {
+      transition: opacity 0.5s ease;
+     opacity: 0;
+  }
+
+ .label-visible {
+     opacity: 1;
+   }

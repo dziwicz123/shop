@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./RegisterPage.css"
 
 function RegisterPage() {
   const [validated, setValidated] = useState(false);
@@ -15,7 +16,7 @@ function RegisterPage() {
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
+    if (!form.checkValidity()) {
       event.preventDefault();
       event.stopPropagation();
     } else {
@@ -23,6 +24,7 @@ function RegisterPage() {
       console.log(formData);
       setValidated(true);
     }
+    setValidated(true);
   };
 
   const handleChange = (event) => {
@@ -54,12 +56,12 @@ function RegisterPage() {
               >
                 <Row className="mb-3">
                   <Form.Group as={Col} md="6" controlId="formFirstName">
-                    <Form.Label className="text-white">
+                    <Form.Label className={`text-white ${formData.formFirstName ? 'label-visible' : 'label-fade'}`}>
                       First Name
                     </Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="First Name"
+                      placeholder={!formData.formFirstName ? "First Name" : ""}
                       name="formFirstName"
                       value={formData.formFirstName}
                       onChange={handleChange}
@@ -67,16 +69,16 @@ function RegisterPage() {
                       size="lg"
                     />
                     <Form.Control.Feedback type="invalid">
-                      First name is required
+                      First name is required.
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group as={Col} md="6" controlId="formLastName">
-                    <Form.Label className="text-white">
+                    <Form.Label className={`text-white ${formData.formLastName ? 'label-visible' : 'label-fade'}`}>
                       Last Name
                     </Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Last Name"
+                      placeholder={!formData.formLastName ? "Last Name" : ""}
                       name="formLastName"
                       value={formData.formLastName}
                       onChange={handleChange}
@@ -84,18 +86,18 @@ function RegisterPage() {
                       size="lg"
                     />
                     <Form.Control.Feedback type="invalid">
-                      Last name is required
+                      Last name is required.
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Row>
                 <Row className="mb-3">
                   <Form.Group as={Col} md="6" controlId="formEmail">
-                    <Form.Label className="text-white">
+                    <Form.Label className={`text-white ${formData.formEmail ? 'label-visible' : 'label-fade'}`}>
                       Email Address
                     </Form.Label>
                     <Form.Control
                       type="email"
-                      placeholder="Email Address"
+                      placeholder={!formData.formEmail ? "Email Address" : ""}
                       name="formEmail"
                       value={formData.formEmail}
                       onChange={handleChange}
@@ -107,12 +109,12 @@ function RegisterPage() {
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group as={Col} md="6" controlId="formPhone">
-                    <Form.Label className="text-white">
+                    <Form.Label className={`text-white ${formData.formPhone ? 'label-visible' : 'label-fade'}`}>
                       Phone Number
                     </Form.Label>
                     <Form.Control
                       type="tel"
-                      placeholder="Phone Number"
+                      placeholder={!formData.formPhone ? "Phone Number" : ""}
                       name="formPhone"
                       value={formData.formPhone}
                       onChange={handleChange}
@@ -121,16 +123,18 @@ function RegisterPage() {
                       size="lg"
                     />
                     <Form.Control.Feedback type="invalid">
-                      Phone number must be 9 digits
+                      Phone number must be 9 digits.
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Row>
                 <Row className="mb-3">
                   <Form.Group as={Col} md="6" controlId="formPassword">
-                    <Form.Label className="text-white">Password</Form.Label>
+                    <Form.Label className={`text-white ${formData.formPassword ? 'label-visible' : 'label-fade'}`}>
+                      Password
+                    </Form.Label>
                     <Form.Control
                       type="password"
-                      placeholder="Password"
+                      placeholder={!formData.formPassword ? "Password" : ""}
                       name="formPassword"
                       value={formData.formPassword}
                       onChange={handleChange}
@@ -138,20 +142,16 @@ function RegisterPage() {
                       size="lg"
                     />
                     <Form.Control.Feedback type="invalid">
-                      Password is required
+                      Password is required.
                     </Form.Control.Feedback>
                   </Form.Group>
-                  <Form.Group
-                    as={Col}
-                    md="6"
-                    controlId="formConfirmPassword"
-                  >
-                    <Form.Label className="text-white">
+                  <Form.Group as={Col} md="6" controlId="formConfirmPassword">
+                    <Form.Label className={`text-white ${formData.formConfirmPassword ? 'label-visible' : 'label-fade'}`}>
                       Confirm Password
                     </Form.Label>
                     <Form.Control
                       type="password"
-                      placeholder="Confirm Password"
+                      placeholder={!formData.formConfirmPassword ? "Confirm Password" : ""}
                       name="formConfirmPassword"
                       value={formData.formConfirmPassword}
                       onChange={handleChange}
@@ -160,14 +160,14 @@ function RegisterPage() {
                       size="lg"
                     />
                     <Form.Control.Feedback type="invalid">
-                      Passwords must match
+                      Passwords must match.
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Row>
                 <Row className="d-grid gap-2 col-6 mx-auto" style={{ marginTop: "2rem" }}>
-                <Button type="submit" className="mx-2 px-5" variant="outline-light" size="lg">
-                  Register
-                </Button>
+                  <Button type="submit" className="mx-2 px-5" variant="outline-light" size="lg">
+                    Register
+                  </Button>
                 </Row>
               </Form>
               <div className="text-center pt-3">
