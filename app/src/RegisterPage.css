@@ -26,7 +26,7 @@ body {
     background-color: #0d6efd; /* Ciemniejszy niebieski przy hover */
   }
   .label-fade {
-      transition: opacity 0.5s ease;
+      transition: opacity 0.5s ease-out;
      opacity: 0;
   }
 
