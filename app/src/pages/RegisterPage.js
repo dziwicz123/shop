@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
+import { Form, Container, Row, Col, Card } from "react-bootstrap";
+import Button from "@mui/material/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./RegisterPage.css"
+import "../styles/RegisterPage.css";
 
 function RegisterPage() {
   const [validated, setValidated] = useState(false);
@@ -11,7 +12,7 @@ function RegisterPage() {
     formEmail: "",
     formPhone: "",
     formPassword: "",
-    formConfirmPassword: ""
+    formConfirmPassword: "",
   });
 
   const handleSubmit = (event) => {
@@ -31,7 +32,7 @@ function RegisterPage() {
     const { name, value } = event.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -56,7 +57,11 @@ function RegisterPage() {
               >
                 <Row className="mb-3">
                   <Form.Group as={Col} md="6" controlId="formFirstName">
-                    <Form.Label className={`text-white ${formData.formFirstName ? 'label-visible' : 'label-fade'}`}>
+                    <Form.Label
+                      className={`text-white ${
+                        formData.formFirstName ? "label-visible" : "label-fade"
+                      }`}
+                    >
                       First Name
                     </Form.Label>
                     <Form.Control
@@ -73,7 +78,11 @@ function RegisterPage() {
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group as={Col} md="6" controlId="formLastName">
-                    <Form.Label className={`text-white ${formData.formLastName ? 'label-visible' : 'label-fade'}`}>
+                    <Form.Label
+                      className={`text-white ${
+                        formData.formLastName ? "label-visible" : "label-fade"
+                      }`}
+                    >
                       Last Name
                     </Form.Label>
                     <Form.Control
@@ -92,7 +101,11 @@ function RegisterPage() {
                 </Row>
                 <Row className="mb-3">
                   <Form.Group as={Col} md="6" controlId="formEmail">
-                    <Form.Label className={`text-white ${formData.formEmail ? 'label-visible' : 'label-fade'}`}>
+                    <Form.Label
+                      className={`text-white ${
+                        formData.formEmail ? "label-visible" : "label-fade"
+                      }`}
+                    >
                       Email Address
                     </Form.Label>
                     <Form.Control
@@ -109,7 +122,11 @@ function RegisterPage() {
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group as={Col} md="6" controlId="formPhone">
-                    <Form.Label className={`text-white ${formData.formPhone ? 'label-visible' : 'label-fade'}`}>
+                    <Form.Label
+                      className={`text-white ${
+                        formData.formPhone ? "label-visible" : "label-fade"
+                      }`}
+                    >
                       Phone Number
                     </Form.Label>
                     <Form.Control
@@ -129,7 +146,11 @@ function RegisterPage() {
                 </Row>
                 <Row className="mb-3">
                   <Form.Group as={Col} md="6" controlId="formPassword">
-                    <Form.Label className={`text-white ${formData.formPassword ? 'label-visible' : 'label-fade'}`}>
+                    <Form.Label
+                      className={`text-white ${
+                        formData.formPassword ? "label-visible" : "label-fade"
+                      }`}
+                    >
                       Password
                     </Form.Label>
                     <Form.Control
@@ -146,12 +167,20 @@ function RegisterPage() {
                     </Form.Control.Feedback>
                   </Form.Group>
                   <Form.Group as={Col} md="6" controlId="formConfirmPassword">
-                    <Form.Label className={`text-white ${formData.formConfirmPassword ? 'label-visible' : 'label-fade'}`}>
+                    <Form.Label
+                      className={`text-white ${
+                        formData.formConfirmPassword
+                          ? "label-visible"
+                          : "label-fade"
+                      }`}
+                    >
                       Confirm Password
                     </Form.Label>
                     <Form.Control
                       type="password"
-                      placeholder={!formData.formConfirmPassword ? "Confirm Password" : ""}
+                      placeholder={
+                        !formData.formConfirmPassword ? "Confirm Password" : ""
+                      }
                       name="formConfirmPassword"
                       value={formData.formConfirmPassword}
                       onChange={handleChange}
@@ -164,8 +193,19 @@ function RegisterPage() {
                     </Form.Control.Feedback>
                   </Form.Group>
                 </Row>
-                <Row className="d-grid gap-2 col-6 mx-auto" style={{ marginTop: "2rem" }}>
-                  <Button type="submit" className="mx-2 px-5" variant="outline-light" size="lg">
+                <Row
+                  className="d-grid gap-2 col-6 mx-auto"
+                  style={{ marginTop: "2rem" }}
+                >
+                  <Button
+                    type="submit"
+                    sx={{
+                      color: "#FFFFFF",
+                      borderRadius: "4px",
+                      border: "1px solid #FFFFFF",
+                      fontSize: "1rem",
+                    }}
+                  >
                     Register
                   </Button>
                 </Row>

@@ -22,3 +22,10 @@
 .slide-up {
   transform: translateY(-100%);
 }
+.visibleOnScroll {
+  display: inline-block !important;
+}
+
+.hiddenOnScroll {
+  display: none !important;
+}

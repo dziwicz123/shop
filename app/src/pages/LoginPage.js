@@ -7,7 +7,7 @@ import {
   MDBCardBody,
   MDBInput,
 } from "mdb-react-ui-kit";
-import "./LoginPage.css";
+import "../styles/LoginPage.css";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 function LoginPage() {
