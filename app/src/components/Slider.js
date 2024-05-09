@@ -59,33 +59,76 @@ function Slider() {
   const handleBack = () => {
     setActiveStep(prevActiveStep => (prevActiveStep - 1 + maxSteps) % maxSteps);
   };
+
   const handleStepChange = step => {
     setActiveStep(step);
   };
+
   return (
-    <Box sx={{ position: 'relative', width: '100%', mx: 'auto', overflow: 'hidden', boxShadow: 3,borderRadius:'25px' }}>
+    <Box sx={{ position: 'relative', width: '100%', mx: 'auto', boxShadow: 4, borderRadius: '25px' }}>
       <Button
         onClick={handleBack}
-        sx={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', zIndex: 1 }}
+        sx={{
+          position: 'absolute',
+          left: '-24px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 1,
+          backgroundColor: 'white',
+          borderRadius: '8px',
+          minWidth: '48px',
+          height: '48px',
+          color: 'black',
+          boxShadow: 2,
+          '&:hover': {
+            backgroundColor: '#f0f0f0'
+          }
+        }}
       >
         <KeyboardArrowLeft />
       </Button>
-      <AutoPlaySwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={activeStep}
-        onChangeIndex={setActiveStep}
-        enableMouseEvents
+
+      <Box sx={{ overflow: 'hidden', borderRadius: '25px' }}>
+        <AutoPlaySwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={activeStep}
+          onChangeIndex={handleStepChange}
+          enableMouseEvents
+        >
+          {images.map((step, index) => (
+            <Box key={step.label} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <img
+                src={step.imgPath}
+                alt={step.label}
+                style={{ width: '100%', display: 'block' }}
+              />
+            </Box>
+          ))}
+        </AutoPlaySwipeableViews>
+      </Box>
+
+      <Button
+        onClick={handleNext}
+        sx={{
+          position: 'absolute',
+          right: '-24px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 1,
+          backgroundColor: 'white',
+          borderRadius: '8px',
+          minWidth: '48px',
+          height: '48px',
+          color: 'black',
+          boxShadow: 2,
+          '&:hover': {
+            backgroundColor: '#f0f0f0'
+          }
+        }}
       >
-        {images.map((step, index) => (
-          <Box key={step.label} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <img
-              src={step.imgPath}
-              alt={step.label}
-              style={{ width: '100%', display: 'block' }}
-            />
-          </Box>
-        ))}
-      </AutoPlaySwipeableViews>
+        <KeyboardArrowRight />
+      </Button>
+
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
         {images.map((step, index) => (
           <Button
@@ -102,12 +145,6 @@ function Slider() {
           </Button>
         ))}
       </Box>
-      <Button
-        onClick={handleNext}
-        sx={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', zIndex: 1 }}
-      >
-        <KeyboardArrowRight />
-      </Button>
     </Box>
   );
 }

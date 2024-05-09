@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Typography, Box } from "@mui/material";
 import AppNavbar from "../components/Navbar";
 import AppFooter from "../components/Footer";
+import ProductZone from "../components/ProductZone";
 import Slider from "../components/Slider";
 
 function HomePage() {
@@ -20,6 +21,7 @@ function HomePage() {
         >
           <Box sx={{ textAlign: "justify" }}>
             <Slider />
+            <ProductZone/>
             <Typography variant="body1" paragraph>
               Risus tempus molestie iaculis lobortis cras euismod lectus proin
               scelerisque sodales. A primis...
