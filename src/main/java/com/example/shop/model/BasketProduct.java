@@ -11,7 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @ToString
 @Builder
-public class BusketProduct {
+public class BasketProduct {
     @Id
     @Column(name = "busket_product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
