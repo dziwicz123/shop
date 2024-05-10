@@ -7,7 +7,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link as RouterLink } from "react-router-dom";
 
 const categories = [
-  { name: "Laptopy i Komputery", path: "/" },
+  { name: "Laptopy i Komputery", path: "/category" },
   { name: "Smartfony i Smartwatche", path: "/" },
   { name: "Gaming i Streaming", path: "/" },
   { name: "Podzespoły komputerowe", path: "/" },
