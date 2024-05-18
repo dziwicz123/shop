@@ -15,18 +15,37 @@ function RegisterPage() {
     formConfirmPassword: "",
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     const form = event.currentTarget;
     if (!form.checkValidity()) {
       event.preventDefault();
       event.stopPropagation();
     } else {
       event.preventDefault();
-      console.log(formData);
+      try {
+        const response = await fetch("http://localhost:8081/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+        if (response.ok) {
+          const userData = await response.json();
+          console.log("User registered successfully:", userData);
+          // Tutaj możesz dodać obsługę sukcesu, np. wyświetlenie komunikatu użytkownikowi
+        } else {
+          console.error("Failed to register user:", response.statusText);
+          // Tutaj możesz dodać obsługę błędu, np. wyświetlenie komunikatu o błędzie użytkownikowi
+        }
+      } catch (error) {
+        console.error("Error registering user:", error);
+        // Obsługa błędu w przypadku problemu z połączeniem lub innego rodzaju błędu
+      }
       setValidated(true);
     }
-    setValidated(true);
   };
+
 
   const handleChange = (event) => {
     const { name, value } = event.target;

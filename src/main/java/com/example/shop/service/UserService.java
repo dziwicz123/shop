@@ -2,25 +2,28 @@ package com.example.shop.service;
 
 import com.example.shop.model.User;
 import com.example.shop.repo.UserRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private final UserRepository userRepository;
+
+    public boolean checkLogin(User user) {
+        user = userRepository.findByEmailAndPassword(user.getEmail(),user.getPassword());
+        return user != null;
+    }
+
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public User createUser(User user) {
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
+
         return userRepository.save(user);
     }
 }
