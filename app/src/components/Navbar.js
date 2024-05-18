@@ -140,7 +140,7 @@ const AppNavbar = () => {
                 <SearchIcon />
               </IconButton>
             </Box>
-            <IconButton sx={{ color: "white" }} component={RouterLink} to="/">
+            <IconButton sx={{ color: "white" }} component={RouterLink} to="/cart">
               <ShoppingCartIcon />
             </IconButton>
             <IconButton
