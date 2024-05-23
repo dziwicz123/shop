@@ -27,4 +27,21 @@ public class UserController {
         User savedUser = userService.createUser(user);
         return ResponseEntity.ok(savedUser);
     }
+
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse> loginUser(@RequestBody User loginRequest) {
+        User user = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+        if (user != null) {
+            ApiResponse response = new ApiResponse();
+            response.setMessage("Login successful");
+            response.setStatus(true);
+            return ResponseEntity.ok(response);
+        } else {
+            ApiResponse response = new ApiResponse();
+            response.setMessage("Invalid email or password");
+            response.setStatus(false);
+            return ResponseEntity.status(401).body(response);
+        }
+    }
 }
