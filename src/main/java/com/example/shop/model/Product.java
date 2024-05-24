@@ -24,6 +24,7 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     private float price;
@@ -31,5 +32,5 @@ public class Product {
     private String image;
 
     @Column(name = "cut_price")
-    private float cutPrice;
+    private Float  cutPrice;
 }
