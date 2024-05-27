@@ -4,6 +4,7 @@ import { Container, Typography, Box } from "@mui/material";
 import AppNavbar from "../components/Navbar";
 import AppFooter from "../components/Footer";
 import ProductGrid from "../components/ProductGrid";
+import ProductFilter from "../components/ProductFilter"; // Import the ProductFilter component
 import axios from 'axios';
 
 function CategoryPage() {
@@ -11,6 +12,7 @@ function CategoryPage() {
     const [products, setProducts] = useState([]);
     const [categoryName, setCategoryName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+    const [filters, setFilters] = useState({}); // Add state for filters
 
     useEffect(() => {
         const fetchCategoryData = async () => {
@@ -28,41 +30,64 @@ function CategoryPage() {
         fetchCategoryData();
     }, [categoryId]);
 
+    const handleFilterChange = (newFilters) => {
+        console.log(newFilters);
+        setFilters(newFilters);
+        // Apply filtering logic if needed
+    };
+
     return (
         <>
             <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
                 <AppNavbar />
-                <Container
-                    maxWidth="lg"
+                <Box
                     sx={{
+                        display: "flex",
+                        justifyContent: "center",
                         py: 3,
                         marginTop: 3,
                         marginBottom: 3,
                         borderRadius: 7,
-                        backgroundColor: "white",
+                        width: '100%',
                     }}
                 >
-                    {isLoading ? (
-                        <Typography variant="h4" align="center">
-                            Loading...
-                        </Typography>
-                    ) : (
-                        <>
-                            <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", mb: 2 }}>
-                                <Typography variant="h3" paragraph>
-                                    {categoryName}
-                                </Typography>
-                                <Typography sx={{ color: "gray", ml: 2 }} variant="h5" paragraph>
-                                    ({products.length} results)
-                                </Typography>
-                            </Box>
-
-                            <Box sx={{ textAlign: "justify" }}>
-                                <ProductGrid products={products} />
-                            </Box>
-                        </>
-                    )}
-                </Container>
+                    <Box sx={{ mr: 1, minWidth: '250px' }}>
+                        <ProductFilter onFilterChange={handleFilterChange} />
+                    </Box>
+                    <Container
+                        maxWidth="lg"
+                        sx={{
+                            flex: 1,
+                            py: 3,
+                            borderRadius: 7,
+                            backgroundColor: "white",
+                            marginLeft: 4, // Remove left margin
+                            marginRight: 0, // Remove right margin
+                            paddingLeft: '8px', // Add slight padding to the left
+                            paddingRight: '8px', // Add slight padding to the right
+                        }}
+                    >
+                        {isLoading ? (
+                            <Typography variant="h4" align="center">
+                                Loading...
+                            </Typography>
+                        ) : (
+                            <>
+                                <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", mb: 2 }}>
+                                    <Typography variant="h3" paragraph>
+                                        {categoryName}
+                                    </Typography>
+                                    <Typography sx={{ color: "gray", ml: 2 }} variant="h5" paragraph>
+                                        ({products.length} results)
+                                    </Typography>
+                                </Box>
+                                <Box sx={{ textAlign: "justify" }}>
+                                    <ProductGrid products={products} />
+                                </Box>
+                            </>
+                        )}
+                    </Container>
+                </Box>
                 <AppFooter />
             </Box>
         </>
