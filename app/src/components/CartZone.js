@@ -32,8 +32,6 @@ const initialItems = [
 
 const CartZone = () =>{
   const [items, setItems] = useState(initialItems);
-  const [shipping, setShipping] = useState(5);
-  const [coupon, setCoupon] = useState('');
 
   const handleQuantityChange = (id, newQuantity) => {
     setItems(items.map(item =>
@@ -45,13 +43,6 @@ const CartZone = () =>{
     setItems(items.filter(item => item.id !== id));
   };
 
-  const handleShippingChange = (event) => {
-    setShipping(event.target.value);
-  };
-
-  const handleCouponChange = (event) => {
-    setCoupon(event.target.value);
-  };
 
   const handleRegister = () => {
     // Handle registration logic
@@ -102,9 +93,6 @@ const CartZone = () =>{
                     <CartSummary
                       itemCount={itemCount}
                       totalPrice={totalPrice}
-                      shipping={shipping}
-                      onShippingChange={handleShippingChange}
-                      onCouponChange={handleCouponChange}
                       onRegister={handleRegister}
                     />
                   </Grid>
