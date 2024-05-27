@@ -15,13 +15,14 @@ function HomePage() {
           maxWidth="lg"
           sx={{
             py: 3,
+            marginTop: 3,
+            marginBottom: 3,
+            borderRadius: 7,
             backgroundColor: "white",
           }}
         >
-          <Box sx={{ textAlign: "justify" }}>
-            <Slider />
-            <ProductZone/>
-          </Box>
+          <Slider />
+          <ProductZone />
         </Container>
         <AppFooter />
       </Box>
