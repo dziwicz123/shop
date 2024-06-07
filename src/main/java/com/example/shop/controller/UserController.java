@@ -22,14 +22,14 @@ public class UserController {
         return res;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/api/register")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         User savedUser = userService.createUser(user);
         return ResponseEntity.ok(savedUser);
     }
 
 
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     public ResponseEntity<ApiResponse> loginUser(@RequestBody User loginRequest) {
         User user = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
         if (user != null) {
