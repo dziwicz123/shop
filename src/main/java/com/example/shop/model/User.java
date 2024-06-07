@@ -18,10 +18,12 @@ public class User {
     private Long id;
 
     private String name;
+
     private String lastName;
 
     @Column(unique = true)
     private String email;
+
     private int Phone;
 
     private String password;
