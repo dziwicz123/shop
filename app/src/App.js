@@ -7,7 +7,8 @@ import ProductPage from './pages/ProductPage';
 import CategoryPage from './pages/CategoryPage';
 import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
-
+import Delivery from "./pages/DeliveryPage";
+import OrderSummaryPage from "./pages/Summary";
 function App() {
   return (
       <Router>
@@ -19,6 +20,8 @@ function App() {
           <Route path="/category/:categoryId" element={<CategoryPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/delivery" element={<Delivery />} />
+          <Route path="/summary" element={<OrderSummaryPage />} />
         </Routes>
       </Router>
   );
