@@ -28,4 +28,8 @@ public class ProductService {
             throw e;
         }
     }
+
+    public List<Product> searchProducts(String query) {
+        return productRepository.findByProductNameContainingIgnoreCase(query);
+    }
 }

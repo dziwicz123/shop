@@ -28,6 +28,7 @@ const AppNavbar = () => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [categories, setCategories] = useState([]);
     const [showButton, setShowButton] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("");
     const navigate = useNavigate();
 
     const handleDrawerToggle = () => {
@@ -82,6 +83,16 @@ const AppNavbar = () => {
     const handleCategoryClick = (categoryId) => {
         navigate(`/category/${categoryId}`);
         handleClose();
+    };
+
+    const handleSearchInputChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    const handleSearch = async () => {
+        if (searchQuery.trim() !== "") {
+            navigate(`/search?query=${searchQuery}`);
+        }
     };
 
     const drawer = (
@@ -166,6 +177,13 @@ const AppNavbar = () => {
                                 variant="outlined"
                                 placeholder="Czego szukasz?"
                                 size="small"
+                                value={searchQuery}
+                                onChange={handleSearchInputChange}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        handleSearch();
+                                    }
+                                }}
                                 sx={{
                                     input: { color: "white" },
                                     "& .MuiOutlinedInput-notchedOutline": {
@@ -173,7 +191,10 @@ const AppNavbar = () => {
                                     },
                                 }}
                             />
-                            <IconButton sx={{ ml: 1, color: "white" }}>
+                            <IconButton
+                                sx={{ ml: 1, color: "white" }}
+                                onClick={handleSearch}
+                            >
                                 <SearchIcon />
                             </IconButton>
                         </Box>
