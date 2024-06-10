@@ -29,6 +29,7 @@ const AppNavbar = () => {
     const [categories, setCategories] = useState([]);
     const [showButton, setShowButton] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
 
     const handleDrawerToggle = () => {
@@ -70,7 +71,6 @@ const AppNavbar = () => {
         const fetchCategories = async () => {
             try {
                 const response = await axios.get('http://localhost:8081/api/categories');
-                console.log('Fetched categories:', response.data); // Add logging here
                 setCategories(response.data);
             } catch (error) {
                 console.error('Failed to fetch categories:', error);
@@ -78,6 +78,13 @@ const AppNavbar = () => {
         };
 
         fetchCategories();
+    }, []);
+
+    useEffect(() => {
+        const user = sessionStorage.getItem('user');
+        if (user) {
+            setIsLoggedIn(true);
+        }
     }, []);
 
     const handleCategoryClick = (categoryId) => {
@@ -92,6 +99,20 @@ const AppNavbar = () => {
     const handleSearch = async () => {
         if (searchQuery.trim() !== "") {
             navigate(`/search?query=${searchQuery}`);
+        }
+    };
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('user');
+        setIsLoggedIn(false);
+        navigate('/');
+    };
+
+    const handleUserButtonClick = () => {
+        if (isLoggedIn) {
+            navigate('/profile'); // Redirect to user profile page
+        } else {
+            navigate('/login'); // Redirect to login page
         }
     };
 
@@ -206,18 +227,19 @@ const AppNavbar = () => {
                             aria-label="account of current user"
                             aria-haspopup="true"
                             color="inherit"
-                            onClick={handleProfileMenuOpen}
+                            onClick={handleUserButtonClick}
                         >
                             <AccountCircleIcon />
                         </IconButton>
-                        <Menu
-                            anchorEl={profileMenuAnchorEl}
-                            open={Boolean(profileMenuAnchorEl)}
-                            onClose={handleProfileMenuClose}
-                        >
-                            <MenuItem component={RouterLink} to="/login" onClick={handleProfileMenuClose}>Zaloguj się</MenuItem>
-                            <MenuItem component={RouterLink} to="/register" onClick={handleProfileMenuClose}>Zarejestruj się</MenuItem>
-                        </Menu>
+                        {isLoggedIn && (
+                            <Menu
+                                anchorEl={profileMenuAnchorEl}
+                                open={Boolean(profileMenuAnchorEl)}
+                                onClose={handleProfileMenuClose}
+                            >
+                                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                            </Menu>
+                        )}
                     </Toolbar>
                 </Container>
             </AppBar>

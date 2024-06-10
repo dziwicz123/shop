@@ -1,7 +1,11 @@
 package com.example.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -32,5 +36,9 @@ public class Product {
     private String image;
 
     @Column(name = "cut_price")
-    private Float  cutPrice;
+    private Float cutPrice;
+
+    @ManyToMany(mappedBy = "products")
+    @JsonIgnoreProperties("products")
+    private List<Basket> baskets = new ArrayList<>();
 }

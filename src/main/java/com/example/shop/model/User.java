@@ -1,7 +1,10 @@
 package com.example.shop.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -24,7 +27,11 @@ public class User {
     @Column(unique = true)
     private String email;
 
-    private int Phone;
+    private int phone;
 
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties("user")
+    private List<Basket> baskets;
 }

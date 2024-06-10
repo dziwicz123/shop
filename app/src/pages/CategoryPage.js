@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Container, Typography, Box } from "@mui/material";
 import AppNavbar from "../components/Navbar";
 import AppFooter from "../components/Footer";
 import ProductGrid from "../components/ProductGrid";
-import ProductFilter from "../components/ProductFilter"; // Import the ProductFilter component
+import ProductFilter from "../components/ProductFilter";
 import axios from 'axios';
 
 function CategoryPage() {
@@ -12,13 +12,14 @@ function CategoryPage() {
     const [products, setProducts] = useState([]);
     const [categoryName, setCategoryName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
-    const [filters, setFilters] = useState({}); // Add state for filters
+    const [filters, setFilters] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchCategoryData = async () => {
             try {
                 const response = await axios.get(`http://localhost:8081/api/categories/${categoryId}/products`);
-                console.log('Fetched category data:', response.data); // Log the response data
+                console.log('Fetched category data:', response.data);
                 setProducts(response.data.products);
                 setCategoryName(response.data.categoryName);
                 setIsLoading(false);
@@ -34,6 +35,11 @@ function CategoryPage() {
         console.log(newFilters);
         setFilters(newFilters);
         // Apply filtering logic if needed
+    };
+
+    const handleAddToBasket = (productId) => {
+        // Handle add to basket logic here if needed
+        console.log(`Product ${productId} added to basket`);
     };
 
     return (
@@ -82,7 +88,7 @@ function CategoryPage() {
                                     </Typography>
                                 </Box>
                                 <Box sx={{ textAlign: "justify" }}>
-                                    <ProductGrid products={products} />
+                                    <ProductGrid products={products} onAddToBasket={handleAddToBasket} />
                                 </Box>
                             </>
                         )}
