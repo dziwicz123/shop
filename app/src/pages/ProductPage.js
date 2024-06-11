@@ -11,8 +11,6 @@ import {
   FormControl,
   MenuItem,
   Select,
-  ToggleButton,
-  ToggleButtonGroup,
 } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -20,12 +18,12 @@ import AppNavbar from "../components/Navbar";
 import AppFooter from "../components/Footer";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-
+import AddToCartModal from "../components/AddToCartModal";
 const ProductPage = () => {
   const { productId } = useParams(); // Get product ID from route parameters
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState("Niebieski");
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     if (productId) {
@@ -48,12 +46,6 @@ const ProductPage = () => {
     setQuantity(event.target.value);
   };
 
-  const handleColorChange = (event, newColor) => {
-    if (newColor !== null) {
-      setColor(newColor);
-    }
-  };
-
   const handleAddToCart = () => {
     const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
@@ -71,8 +63,11 @@ const ProductPage = () => {
     }
 
     sessionStorage.setItem("cart", JSON.stringify(cart));
+    setOpenModal(true);
   };
-
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
   if (!product) {
     return <Typography>Loading...</Typography>;
   }
@@ -84,8 +79,10 @@ const ProductPage = () => {
   return (
       <>
         <AppNavbar />
-        <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
-          <Container maxWidth="lg" sx={{ py: 3, backgroundColor: "white", height: "100%" }}>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Container maxWidth="lg" sx={{ py: 3, marginTop: 3,
+            marginBottom: 3,
+            borderRadius: 7, backgroundColor: "white", height: "100%" }}>
             <Grid container spacing={4} alignItems="flex-start">
               <Grid item xs={12} md={4}>
                 <Card elevation={0}>
@@ -112,26 +109,6 @@ const ProductPage = () => {
                         </span>
                         ))}
                       </Typography>
-                      <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
-                        Kolor:
-                      </Typography>
-                      <ToggleButtonGroup
-                          value={color}
-                          exclusive
-                          onChange={handleColorChange}
-                          aria-label="device color"
-                          sx={{ mb: 2 }}
-                      >
-                        <ToggleButton value="Czarny" aria-label="Czarny">
-                          Czarny
-                        </ToggleButton>
-                        <ToggleButton value="Niebieski" aria-label="Niebieski">
-                          Niebieski
-                        </ToggleButton>
-                        <ToggleButton value="Zielony" aria-label="Zielony">
-                          Zielony
-                        </ToggleButton>
-                      </ToggleButtonGroup>
                     </Paper>
                   </Grid>
                   <Grid item xs={4}>
@@ -196,6 +173,7 @@ const ProductPage = () => {
             </Grid>
           </Container>
         </Box>
+        <AddToCartModal open={openModal} handleClose={handleCloseModal} />
         <AppFooter />
       </>
   );

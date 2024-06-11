@@ -10,6 +10,7 @@ import Cart from "./pages/Cart";
 import SearchResults from './pages/SearchResults';
 import Delivery from "./pages/DeliveryPage";
 import OrderSummaryPage from "./pages/Summary";
+import AdminPage from "./pages/AdminPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/search" element={<SearchResults />} />
             <Route path="/delivery" element={<Delivery />} />
             <Route path="/summary" element={<OrderSummaryPage />} />
+            <Route path="/admin" element={<AdminPage />} />
         </Routes>
       </Router>
   );
