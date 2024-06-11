@@ -37,4 +37,15 @@ public class ProductService {
         return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
+    public List<Product> getAllProducts() {
+        try {
+            LOGGER.info("Fetching all products");
+            List<Product> products = productRepository.findAll();
+            LOGGER.info("Found products: " + products);
+            return products;
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error fetching all products", e);
+            throw e;
+        }
+    }
 }
