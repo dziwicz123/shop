@@ -54,9 +54,32 @@ const ProductPage = () => {
     }
   };
 
+  const handleAddToCart = () => {
+    const cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
+    const cartProduct = {
+      ...product,
+      quantity: quantity
+    };
+
+    const existingProductIndex = cart.findIndex(item => item.id === product.id);
+
+    if (existingProductIndex !== -1) {
+      cart[existingProductIndex].quantity += quantity;
+    } else {
+      cart.push(cartProduct);
+    }
+
+    sessionStorage.setItem("cart", JSON.stringify(cart));
+  };
+
   if (!product) {
     return <Typography>Loading...</Typography>;
   }
+
+  const formattedDescription = product.description.replace(/\\r\\n|\\n/g, "\n");
+  const descriptionLines = formattedDescription.split("\n");
+  const descriptionLines4 = formattedDescription.split("\n").slice(0, 4);
 
   return (
       <>
@@ -82,7 +105,12 @@ const ProductPage = () => {
                   <Grid item xs={8}>
                     <Paper elevation={2} sx={{ p: 2 }}>
                       <Typography variant="body1" gutterBottom>
-                        {product.description}
+                        {descriptionLines4.map((line, index) => (
+                            <span key={index}>
+                          {line}
+                              <br />
+                        </span>
+                        ))}
                       </Typography>
                       <Typography variant="body2" sx={{ mt: 2, mb: 1 }}>
                         Kolor:
@@ -135,6 +163,7 @@ const ProductPage = () => {
                             color="success"
                             sx={{ flexGrow: 1 }}
                             startIcon={<ShoppingCartIcon />}
+                            onClick={handleAddToCart}
                         >
                           Dodaj do koszyka
                         </Button>
@@ -155,7 +184,14 @@ const ProductPage = () => {
                 Opis Produktu:
               </Typography>
               <Paper elevation={2} sx={{ p: 2 }}>
-                <Typography variant="body1">{product.description}</Typography>
+                <Typography variant="body1">
+                  {descriptionLines.map((line, index) => (
+                      <span key={index}>
+                    {line}
+                        <br />
+                  </span>
+                  ))}
+                </Typography>
               </Paper>
             </Grid>
           </Container>
