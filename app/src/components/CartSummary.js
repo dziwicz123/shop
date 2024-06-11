@@ -1,39 +1,28 @@
 import React from 'react';
-import {
-  Grid,
-  Typography,
-  Divider,
-  Button,
-} from '@mui/material';
+import { Button, Typography, Box } from '@mui/material';
 
-export default function CartSummary({ itemCount, totalPrice, onRegister }) {
-  return (
-    <div style={{ padding: '40px' }}>
-      <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 5, mt: 2, pt: 1 }}>
-        Summary
-      </Typography>
+const CartSummary = ({ itemCount, totalPrice, onDelivery }) => {
+    return (
+        <Box p={4}>
+            <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
+                Order Summary
+            </Typography>
+            <Typography variant="subtitle1" sx={{ mb: 2 }}>
+                Items: {itemCount}
+            </Typography>
+            <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
+                Total: {totalPrice} zł
+            </Typography>
+            <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={onDelivery}
+            >
+                Delivery
+            </Button>
+        </Box>
+    );
+};
 
-      <Divider sx={{ my: 4 }} />
-
-      <Grid container justifyContent="space-between" sx={{ mb: 4 }}>
-        <Typography variant="h5" sx={{ textTransform: 'uppercase' }}>
-          items {itemCount}
-        </Typography>
-        <Typography variant="h5">€ {totalPrice}</Typography>
-      </Grid>
-
-      <Divider sx={{ my: 4 }} />
-
-      <Grid container justifyContent="space-between" sx={{ mb: 5 }}>
-        <Typography variant="h5" sx={{ textTransform: 'uppercase' }}>
-          Total price
-        </Typography>
-        <Typography variant="h5">€ {totalPrice}</Typography>
-      </Grid>
-
-      <Button variant="contained" color="primary" size="large" fullWidth onClick={onRegister}>
-        Register
-      </Button>
-    </div>
-  );
-}
+export default CartSummary;

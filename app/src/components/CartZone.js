@@ -3,12 +3,15 @@ import { Container, Grid, Card, CardContent, Typography, Button, Divider } from 
 import CartItem from './CartItem';
 import CartSummary from './CartSummary';
 import { ArrowBack } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 const CartZone = () => {
   const [items, setItems] = useState(() => {
     const storedItems = sessionStorage.getItem('cart');
     return storedItems ? JSON.parse(storedItems) : [];
   });
+
+  const navigate = useNavigate();
 
   // Update session storage whenever the items change
   useEffect(() => {
@@ -25,8 +28,8 @@ const CartZone = () => {
     setItems(items.filter(item => item.id !== id));
   };
 
-  const handleRegister = () => {
-    console.log('Register button clicked');
+  const handleDelivery = () => {
+    navigate('/delivery');
   };
 
   const itemCount = items.reduce((count, item) => count + item.quantity, 0);
@@ -77,7 +80,7 @@ const CartZone = () => {
                       <CartSummary
                           itemCount={itemCount}
                           totalPrice={totalPrice}
-                          onRegister={handleRegister}
+                          onDelivery={handleDelivery}
                       />
                     </Grid>
                   </Grid>
