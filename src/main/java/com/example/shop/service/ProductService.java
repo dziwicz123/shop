@@ -28,4 +28,13 @@ public class ProductService {
             throw e;
         }
     }
+
+    public List<Product> searchProducts(String query) {
+        return productRepository.findByProductNameContainingIgnoreCase(query);
+    }
+
+    public Product getProductById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+    }
+
 }

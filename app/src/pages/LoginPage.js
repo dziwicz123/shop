@@ -32,8 +32,18 @@ function LoginPage() {
       });
       if (response.ok) {
         const res = await response.json();
-        if (res.status) {
+        console.log("Login response:", res);
+        if (res.status && res.user) {
+          console.log("Storing user data to sessionStorage:", res.user);
+          sessionStorage.setItem('user', JSON.stringify(res.user)); // Store user information in sessionStorage
           console.log("User logged in successfully:", res);
+
+          // Save the user's basket with state = false to sessionStorage
+          const basket = res.user.baskets.find(basket => basket.state === false);
+          if (basket) {
+            sessionStorage.setItem('basket', JSON.stringify(basket));
+          }
+
           navigate("/");
         } else {
           console.error("Failed to log in:", res.message);

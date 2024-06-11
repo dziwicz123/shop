@@ -1,45 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Container, Typography, Box } from "@mui/material";
 import AppNavbar from "../components/Navbar";
 import AppFooter from "../components/Footer";
 import ProductGrid from "../components/ProductGrid";
-import ProductFilter from "../components/ProductFilter";
+import ProductFilter from "../components/ProductFilter"; // Import the ProductFilter component
 import axios from 'axios';
 
-function CategoryPage() {
-    const { categoryId } = useParams();
+function SearchResults() {
+    const location = useLocation();
     const [products, setProducts] = useState([]);
-    const [categoryName, setCategoryName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
     const [filters, setFilters] = useState({});
-    const navigate = useNavigate();
+    const [query, setQuery] = useState("");
 
     useEffect(() => {
-        const fetchCategoryData = async () => {
+        const searchQuery = new URLSearchParams(location.search).get("query");
+        setQuery(searchQuery);
+
+        const fetchSearchResults = async () => {
             try {
-                const response = await axios.get(`http://localhost:8081/api/categories/${categoryId}/products`);
-                console.log('Fetched category data:', response.data);
-                setProducts(response.data.products);
-                setCategoryName(response.data.categoryName);
+                const response = await axios.get(`http://localhost:8081/api/products/search?query=${searchQuery}`);
+                console.log('Fetched search results:', response.data);
+                setProducts(response.data);
                 setIsLoading(false);
             } catch (error) {
-                console.error('Failed to fetch category data:', error);
+                console.error('Failed to fetch search results:', error);
             }
         };
 
-        fetchCategoryData();
-    }, [categoryId]);
+        fetchSearchResults();
+    }, [location]);
 
     const handleFilterChange = (newFilters) => {
         console.log(newFilters);
         setFilters(newFilters);
         // Apply filtering logic if needed
-    };
-
-    const handleAddToBasket = (productId) => {
-        // Handle add to basket logic here if needed
-        console.log(`Product ${productId} added to basket`);
     };
 
     return (
@@ -81,14 +77,14 @@ function CategoryPage() {
                             <>
                                 <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", mb: 2 }}>
                                     <Typography variant="h3" paragraph>
-                                        {categoryName}
+                                        Search Results for "{query}"
                                     </Typography>
                                     <Typography sx={{ color: "gray", ml: 2 }} variant="h5" paragraph>
                                         ({products.length} results)
                                     </Typography>
                                 </Box>
                                 <Box sx={{ textAlign: "justify" }}>
-                                    <ProductGrid products={products} onAddToBasket={handleAddToBasket} />
+                                    <ProductGrid products={products} />
                                 </Box>
                             </>
                         )}
@@ -100,4 +96,4 @@ function CategoryPage() {
     );
 }
 
-export default CategoryPage;
+export default SearchResults;
