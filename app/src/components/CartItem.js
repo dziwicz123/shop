@@ -52,7 +52,7 @@ export default function CartItem({ item, onQuantityChange, onRemove }) {
             </IconButton>
           </Grid>
           <Grid item md={2} sx={{ textAlign: 'end' }}>
-            <Typography variant="h6">€ {item.price.toFixed(2)}</Typography>
+            <Typography variant="h6">{item.price.toFixed(2)} zł</Typography>
           </Grid>
           <Grid item md={1} sx={{ textAlign: 'end' }}>
             <IconButton onClick={() => onRemove(item.id)}>
