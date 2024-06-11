@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Container, Typography, Box } from "@mui/material";
 import AppNavbar from "../components/Navbar";
 import AppFooter from "../components/Footer";
@@ -12,8 +12,11 @@ function CategoryPage() {
     const [products, setProducts] = useState([]);
     const [categoryName, setCategoryName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
-    const [filters, setFilters] = useState({});
-    const navigate = useNavigate();
+    const [filters, setFilters] = useState({
+        producers: [],
+        priceFrom: '',
+        priceTo: '',
+    });
 
     useEffect(() => {
         const fetchCategoryData = async () => {
@@ -31,16 +34,27 @@ function CategoryPage() {
         fetchCategoryData();
     }, [categoryId]);
 
+    const applyFilters = (products, filters) => {
+        return products.filter(product => {
+            const meetsPriceFrom = filters.priceFrom ? product.price >= filters.priceFrom : true;
+            const meetsPriceTo = filters.priceTo ? product.price <= filters.priceTo : true;
+            const meetsProducers = filters.producers.length > 0 ? filters.producers.some(producer => product.productName.toLowerCase().includes(producer.toLowerCase())) : true;
+
+            return meetsPriceFrom && meetsPriceTo && meetsProducers;
+        });
+    };
+
     const handleFilterChange = (newFilters) => {
         console.log(newFilters);
         setFilters(newFilters);
-        // Apply filtering logic if needed
     };
 
     const handleAddToBasket = (productId) => {
         // Handle add to basket logic here if needed
         console.log(`Product ${productId} added to basket`);
     };
+
+    const filteredProducts = applyFilters(products, filters);
 
     return (
         <>
@@ -58,7 +72,7 @@ function CategoryPage() {
                     }}
                 >
                     <Box sx={{ mr: 1, minWidth: '250px' }}>
-                        <ProductFilter onFilterChange={handleFilterChange} />
+                        <ProductFilter onFilterChange={handleFilterChange} categoryId={categoryId} />
                     </Box>
                     <Container
                         maxWidth="lg"
@@ -84,11 +98,11 @@ function CategoryPage() {
                                         {categoryName}
                                     </Typography>
                                     <Typography sx={{ color: "gray", ml: 2 }} variant="h5" paragraph>
-                                        ({products.length} results)
+                                        ({filteredProducts.length} results)
                                     </Typography>
                                 </Box>
                                 <Box sx={{ textAlign: "justify" }}>
-                                    <ProductGrid products={products} onAddToBasket={handleAddToBasket} />
+                                    <ProductGrid products={filteredProducts} onAddToBasket={handleAddToBasket} />
                                 </Box>
                             </>
                         )}

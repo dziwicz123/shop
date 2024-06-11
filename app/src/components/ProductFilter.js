@@ -7,25 +7,20 @@ import {
   FormGroup,
   FormLabel,
   Input,
-  MenuItem,
-  Select,
   Typography,
 } from '@mui/material';
 
-const ProductFilter = ({ onFilterChange }) => {
+const ProductFilter = ({ onFilterChange, categoryId }) => {
   const [filters, setFilters] = useState({
     producers: {
       HP: false,
       Dell: false,
       ASUS: false,
-      'Green Cell': false,
-      Acer: false,
+      Lenovo: false,
+      G4M3R: false,
     },
     priceFrom: '',
     priceTo: '',
-    availability: '',
-    hideUnavailable: false,
-    Promocja: false,
   });
 
   const previousFiltersRef = useRef(filters);
@@ -34,7 +29,7 @@ const ProductFilter = ({ onFilterChange }) => {
 
   useEffect(() => {
     const selectedProducers = Object.keys(filters.producers).filter(
-      (producer) => filters.producers[producer]
+        (producer) => filters.producers[producer]
     );
 
     const updatedFilters = {
@@ -66,98 +61,53 @@ const ProductFilter = ({ onFilterChange }) => {
     }));
   };
 
-  const handleSelectChange = ({ target: { value } }) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      availability: value,
-    }));
-  };
-
-  const handleStatusChange = (event) => {
-    const { name, checked } = event.target;
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [name]: checked,
-    }));
-  };
-
   return (
-    <Box sx={{ padding: 2, width: 300, backgroundColor: 'white', borderRadius: 7 }}>
-      <Typography variant="h6">Filtry</Typography>
+      <Box sx={{ padding: 2, width: 300, backgroundColor: 'white', borderRadius: 7 }}>
+        <Typography variant="h6">Filtry</Typography>
 
-      <Box mt={2}>
-        <FormControl component="fieldset" variant="standard">
-          <FormLabel component="legend">Producent</FormLabel>
-          <FormGroup>
-            {Object.keys(filters.producers).map((producer) => (
-              <FormControlLabel
-                key={producer}
-                control={
-                  <Checkbox
-                    name={producer}
-                    checked={filters.producers[producer]}
-                    onChange={(e) => handleCheckboxChange(e, 'producers')}
-                  />
-                }
-                label={producer}
-              />
-            ))}
-          </FormGroup>
-        </FormControl>
-      </Box>
-
-      <Box mt={2}>
-        <Typography variant="subtitle1">Cena</Typography>
-        <Box display="flex" justifyContent="space-between">
-          <Input
-            placeholder="od"
-            type="number"
-            name="priceFrom"
-            value={filters.priceFrom}
-            onChange={handleInputChange}
-          />
-          <Input
-            placeholder="do"
-            type="number"
-            name="priceTo"
-            value={filters.priceTo}
-            onChange={handleInputChange}
-          />
-        </Box>
-      </Box>
-
-      <Box mt={2}>
-        <FormControl fullWidth>
-          <FormLabel component="legend">Dostępność</FormLabel>
-          <Select
-            value={filters.availability}
-            onChange={handleSelectChange}
-            displayEmpty
-          >
-            <MenuItem value="">Dostępny</MenuItem>
-            <MenuItem value="unavailable">Niedostępny</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-
-      <Box mt={2}>
-        <FormControl component="fieldset" variant="standard">
-          <FormLabel component="legend">Status</FormLabel>
-          <FormGroup>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  name="Promocja"
-                  checked={filters.Promocja}
-                  onChange={handleStatusChange}
-                />
-              }
-              label="Promocja"
+        <Box mt={2}>
+          <Typography variant="subtitle1">Cena</Typography>
+          <Box display="flex" justifyContent="space-between">
+            <Input
+                placeholder="od"
+                type="number"
+                name="priceFrom"
+                value={filters.priceFrom}
+                onChange={handleInputChange}
             />
-          </FormGroup>
-        </FormControl>
+            <Input
+                placeholder="do"
+                type="number"
+                name="priceTo"
+                value={filters.priceTo}
+                onChange={handleInputChange}
+            />
+          </Box>
+        </Box>
+
+        {categoryId === '1' && (
+            <Box mt={2}>
+              <FormControl component="fieldset" variant="standard">
+                <FormLabel component="legend">Producent</FormLabel>
+                <FormGroup>
+                  {Object.keys(filters.producers).map((producer) => (
+                      <FormControlLabel
+                          key={producer}
+                          control={
+                            <Checkbox
+                                name={producer}
+                                checked={filters.producers[producer]}
+                                onChange={(e) => handleCheckboxChange(e, 'producers')}
+                            />
+                          }
+                          label={producer}
+                      />
+                  ))}
+                </FormGroup>
+              </FormControl>
+            </Box>
+        )}
       </Box>
-    </Box>
   );
 };
 
