@@ -29,14 +29,19 @@ const CartZone = () => {
   };
 
   const handleDelivery = () => {
-    navigate('/delivery');
+    const user = sessionStorage.getItem('user');
+    if (user) {
+      navigate('/delivery');
+    } else {
+      navigate('/login');
+    }
   };
 
   const itemCount = items.reduce((count, item) => count + item.quantity, 0);
   const totalPrice = items.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   return (
-      <section style={{minHeight: '100vh' }}>
+      <section style={{ minHeight: '100vh' }}>
         <Container sx={{ py: 5, height: '100%' }}>
           <Grid container justifyContent="center" alignItems="center" sx={{ height: '100%' }}>
             <Grid item xs={12}>
@@ -92,4 +97,5 @@ const CartZone = () => {
       </section>
   );
 }
+
 export default CartZone;
