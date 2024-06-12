@@ -19,22 +19,6 @@ const Sidebar = ({ activeSection, setActiveSection, onLogout }) => (
         <Divider />
         <StyledListItem
             button
-            active={activeSection === 'userInfo'}
-            onClick={() => setActiveSection('userInfo')}
-        >
-          <ListItemText primary="Dane do zamówień" />
-        </StyledListItem>
-        <Divider />
-        <StyledListItem
-            button
-            active={activeSection === 'orderHistory'}
-            onClick={() => setActiveSection('orderHistory')}
-        >
-          <ListItemText primary="Historia Zamówień" />
-        </StyledListItem>
-        <Divider />
-        <StyledListItem
-            button
             onClick={onLogout}
         >
           <ListItemText primary="Wyloguj" />
