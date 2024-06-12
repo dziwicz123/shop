@@ -1,6 +1,5 @@
 package com.example.shop.controller;
 
-import com.example.shop.DTO.AddressDTO;
 import com.example.shop.DTO.OrderDetailsRequest;
 import com.example.shop.model.*;
 import com.example.shop.repo.*;
@@ -9,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -103,4 +104,26 @@ public class OrderDetailsController {
 
         return ResponseEntity.ok(orderDetails);
     }
+
+    @GetMapping("/all")
+    public List<OrderDetails> getAllOrders() {
+        return orderDetailsRepository.findAll();
+    }
+
+    @PatchMapping("/update/{id}")
+    public ResponseEntity<OrderDetails> updateOrderStatus(@PathVariable Long id, @RequestBody Map<String, OrderState> payload) {
+        OrderState state = payload.get("state");
+        Optional<OrderDetails> optionalOrder = orderDetailsRepository.findById(id);
+        if (!optionalOrder.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        OrderDetails orderDetails = optionalOrder.get();
+        orderDetails.setState(state);
+        if (state == OrderState.SHIPPED) {
+            orderDetails.setShipDate(LocalDateTime.now());
+        }
+        orderDetailsRepository.save(orderDetails);
+        return ResponseEntity.ok(orderDetails);
+    }
+
 }
