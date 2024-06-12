@@ -6,27 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Service
 public class ProductService {
-
-    private static final Logger LOGGER = Logger.getLogger(ProductService.class.getName());
 
     @Autowired
     private ProductRepository productRepository;
 
     public List<Product> getProductsByCategory(Long categoryId) {
-        try {
-            LOGGER.info("Fetching products for category ID: " + categoryId);
-            List<Product> products = productRepository.findByCategoryId(categoryId);
-            LOGGER.info("Found products: " + products);
-            return products;
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error fetching products for category ID: " + categoryId, e);
-            throw e;
-        }
+        return productRepository.findByCategoryId(categoryId);
     }
 
     public List<Product> searchProducts(String query) {
@@ -38,14 +26,14 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        try {
-            LOGGER.info("Fetching all products");
-            List<Product> products = productRepository.findAll();
-            LOGGER.info("Found products: " + products);
-            return products;
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error fetching all products", e);
-            throw e;
-        }
+        return productRepository.findAll();
+    }
+
+    public Product addProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
     }
 }

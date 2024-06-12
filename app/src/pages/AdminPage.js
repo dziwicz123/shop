@@ -9,10 +9,8 @@ import Navigator from '../components/AdminNavigator';
 import Header from '../components/AdminHeader';
 import Users from '../components/Users';
 import AddUser from '../components/AddUser';
-import RemoveUser from '../components/RemoveUser';
 import Products from '../components/Products';
 import AddProduct from '../components/AddProduct';
-import RemoveProduct from '../components/RemoveProduct';
 import Orders from '../components/Orders';
 import RemoveOrder from '../components/RemoveOrder';
 
@@ -195,8 +193,6 @@ export default function AdminPage() {
             return <Users />;
           case 'addUser':
             return <AddUser />;
-          case 'removeUser':
-            return <RemoveUser />;
           default:
             return <Users />;
         }
@@ -206,8 +202,6 @@ export default function AdminPage() {
             return <Products />;
           case 'addProduct':
             return <AddProduct />;
-          case 'removeProduct':
-            return <RemoveProduct />;
           default:
             return <Products />;
         }

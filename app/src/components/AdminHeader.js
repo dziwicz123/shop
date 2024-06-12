@@ -33,7 +33,6 @@ function Header(props) {
           <Tabs value={currentSubView} onChange={onSubViewChange} textColor="inherit">
             <Tab label="Użytkownicy" value="viewUsers" />
             <Tab label="Dodaj użytkownika" value="addUser" />
-            <Tab label="Usuń użytkownika" value="removeUser" />
           </Tabs>
         );
       case 'products':
@@ -41,7 +40,6 @@ function Header(props) {
           <Tabs value={currentSubView} onChange={onSubViewChange} textColor="inherit">
             <Tab label="Produkty" value="viewProducts" />
             <Tab label="Dodaj produkt" value="addProduct" />
-            <Tab label="Usuń produkt" value="removeProduct" />
           </Tabs>
         );
       case 'orders':
