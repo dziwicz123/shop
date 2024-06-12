@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configure(http))
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/register", "/api/register", "/api/login", "/api/categories", "/api/categories/**", "/api/products", "/api/products/**", "/api/products/search", "/api/basket", "/api/basket/addProduct", "/api/basket/add").permitAll()
+                        .requestMatchers("/login", "/register", "/api/register", "/api/login", "/api/categories", "/api/categories/**", "/api/products", "/api/products/**", "/api/products/search", "/api/basket", "/api/basket/addProduct", "/api/basket/add", "/api/order").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -35,4 +35,3 @@ public class SecurityConfig {
         return http.build();
     }
 }
-
