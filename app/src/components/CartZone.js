@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Grid, Card, CardContent, Typography, Button, Divider } from '@mui/material';
 import CartItem from './CartItem';
+import { Link } from 'react-router-dom';
 import CartSummary from './CartSummary';
 import { ArrowBack } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
@@ -39,62 +40,62 @@ const CartZone = () => {
 
   const itemCount = items.reduce((count, item) => count + item.quantity, 0);
   const totalPrice = items.reduce((total, item) => total + (item.price * item.quantity), 0);
-
+  const productText = itemCount === 1 ? 'produkt' : 'produkty';
   return (
-      <section style={{ minHeight: '100vh' }}>
-        <Container sx={{ py: 5, height: '100%' }}>
-          <Grid container justifyContent="center" alignItems="center" sx={{ height: '100%' }}>
-            <Grid item xs={12}>
-              <Card sx={{ borderRadius: 2 }}>
-                <CardContent sx={{ p: 0 }}>
-                  <Grid container spacing={0}>
-                    <Grid item lg={8}>
-                      <div style={{ padding: '40px' }}>
-                        <Grid container justifyContent="space-between" alignItems="center" sx={{ mb: 5 }}>
-                          <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'black' }}>
-                            Shopping Cart
-                          </Typography>
-                          <Typography variant="subtitle1" sx={{ color: 'text.secondary' }}>
-                            {itemCount} items
-                          </Typography>
-                        </Grid>
-
-                        <Divider sx={{ my: 4 }} />
-
-                        {items.length > 0 ? items.map(item => (
-                            <CartItem
-                                key={item.id}
-                                item={item}
-                                onQuantityChange={handleQuantityChange}
-                                onRemove={handleRemove}
-                            />
-                        )) : (
-                            <Typography variant="subtitle1">
-                              Your cart is empty.
-                            </Typography>
-                        )}
-
-                        <div style={{ paddingTop: '20px' }}>
-                          <Button startIcon={<ArrowBack />} href="#" variant="text">
-                            Back to shop
-                          </Button>
-                        </div>
-                      </div>
+    <section>
+    <Container sx={{ py: 5 }}>
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid item xs={12}>
+          <Card sx={{ borderRadius: 2 }}>
+            <CardContent sx={{ p: 0 }}>
+              <Grid container spacing={0}>
+                <Grid item lg={8}>
+                  <div style={{ padding: '40px' }}>
+                    <Grid container justifyContent="space-between" alignItems="center" sx={{ mb: 5 }}>
+                      <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'black' }}>
+                        Koszyk
+                      </Typography>
+                      <Typography variant="subtitle1" sx={{ color: 'text.secondary' }}>
+                        {itemCount} {productText}
+                      </Typography>
                     </Grid>
-                    <Grid item lg={4} sx={{ backgroundColor: '#f5f5f5' }}>
-                      <CartSummary
-                          itemCount={itemCount}
-                          totalPrice={totalPrice}
-                          onDelivery={handleDelivery}
-                      />
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </Container>
-      </section>
+
+                    <Divider sx={{ my: 4 }} />
+
+                    {items.length > 0 ? items.map(item => (
+                        <CartItem
+                            key={item.id}
+                            item={item}
+                            onQuantityChange={handleQuantityChange}
+                            onRemove={handleRemove}
+                        />
+                    )) : (
+                        <Typography variant="subtitle1">
+                          Twój koszyk jest pusty
+                        </Typography>
+                    )}
+
+                    <div style={{ paddingTop: '20px' }}>
+                      <Button startIcon={<ArrowBack />} component={Link} to="/" variant="text">
+                        Kontynuj zakupy
+                      </Button>
+                    </div>
+                  </div>
+                </Grid>
+                <Grid item lg={4} sx={{ backgroundColor: '#f5f5f5' }}>
+                  <CartSummary
+                      itemCount={itemCount}
+                      totalPrice={totalPrice}
+                      onDelivery={handleDelivery}
+                  />
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
+  </section>
   );
 }
 

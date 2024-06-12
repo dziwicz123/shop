@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Container, Typography, Box } from "@mui/material";
+import { Container, Typography, Box, Pagination } from "@mui/material";
 import AppNavbar from "../components/Navbar";
 import AppFooter from "../components/Footer";
 import ProductGrid from "../components/ProductGrid";
@@ -17,6 +17,8 @@ function CategoryPage() {
         priceFrom: '',
         priceTo: '',
     });
+    const [page, setPage] = useState(1);
+    const itemsPerPage = 12;
 
     useEffect(() => {
         const fetchCategoryData = async () => {
@@ -54,7 +56,13 @@ function CategoryPage() {
         console.log(`Product ${productId} added to basket`);
     };
 
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    };
+
     const filteredProducts = applyFilters(products, filters);
+    const paginatedProducts = filteredProducts.slice((page - 1) * itemsPerPage, page * itemsPerPage);
+    const pageCount = Math.ceil(filteredProducts.length / itemsPerPage);
 
     return (
         <>
@@ -81,10 +89,10 @@ function CategoryPage() {
                             py: 3,
                             borderRadius: 7,
                             backgroundColor: "white",
-                            marginLeft: 4, // Remove left margin
-                            marginRight: 0, // Remove right margin
-                            paddingLeft: '8px', // Add slight padding to the left
-                            paddingRight: '8px', // Add slight padding to the right
+                            marginLeft: 4,
+                            marginRight: 0,
+                            paddingLeft: '8px',
+                            paddingRight: '8px',
                         }}
                     >
                         {isLoading ? (
@@ -102,8 +110,18 @@ function CategoryPage() {
                                     </Typography>
                                 </Box>
                                 <Box sx={{ textAlign: "justify" }}>
-                                    <ProductGrid products={filteredProducts} onAddToBasket={handleAddToBasket} />
+                                    <ProductGrid products={paginatedProducts} onAddToBasket={handleAddToBasket} />
                                 </Box>
+                                {pageCount > 1 && (
+                                    <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+                                        <Pagination
+                                            count={pageCount}
+                                            page={page}
+                                            onChange={handlePageChange}
+                                            color="primary"
+                                        />
+                                    </Box>
+                                )}
                             </>
                         )}
                     </Container>

@@ -43,23 +43,23 @@ const Profile = () => {
   return (
       <>
         <AppNavbar />
-        <CssBaseline />
-        <Container maxWidth="lg" sx={{ display: "flex", flexDirection: "row", mt: 4, mb: 4 }}>
-          <Box sx={{ width: "240px", mr: 4 }}>
-            <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} onLogout={handleLogout} />
-          </Box>
-          <Box sx={{ flexGrow: 1 }}>
-            <Paper elevation={3} sx={{ padding: 3, backgroundColor: "#F5F5F5", height: "50vh" }}>
-              <Box mb={4}>
-                <Typography variant="h4" gutterBottom>
-                  Cześć, {user.name}
-                </Typography>
-              </Box>
+      <CssBaseline />
+      <Container maxWidth="lg" sx={{ display: "flex", flexDirection: "row", mt: 4, mb: 4 }}>
+        <Box sx={{ width: "240px", mr: 4 }}>
+          <Sidebar activeSection={activeSection} setActiveSection={setActiveSection} onLogout={handleLogout} />
+        </Box>
+        <Box sx={{ flexGrow: 1 }}>
+          <Paper elevation={3} sx={{ padding: 3, backgroundColor: "#F5F5F5" }}>
+            <Box mb={4}>
+              <Typography variant="h4" gutterBottom>
+                Cześć, {user.name}
+              </Typography>
               {renderSection()}
-            </Paper>
-          </Box>
-        </Container>
-        <Footer />
+            </Box>
+          </Paper>
+        </Box>
+      </Container>
+      <Footer />
       </>
   );
 };
