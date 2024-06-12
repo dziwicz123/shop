@@ -21,10 +21,29 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors(cors -> cors.configure(http))
-                .csrf(csrf -> csrf.disable())
+                .cors()
+                .and()
+                .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login", "/register", "/api/register", "/api/login", "/api/categories", "/api/categories/**", "/api/products", "/api/products/**", "/api/products/search", "/api/basket", "/api/basket/addProduct", "/api/basket/add", "/api/order", "/api/users", "/api/users/**").permitAll()
+                        .requestMatchers(
+                                "/login",
+                                "/register",
+                                "/api/register",
+                                "/api/login",
+                                "/api/categories",
+                                "/api/categories/**",
+                                "/api/products",
+                                "/api/products/**",
+                                "/api/products/search",
+                                "/api/basket",
+                                "/api/basket/addProduct",
+                                "/api/basket/add",
+                                "/api/order",
+                                "/api/order/**",
+                                "/api/order/update/**",
+                                "/api/users",
+                                "/api/users/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session

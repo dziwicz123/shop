@@ -46,7 +46,6 @@ function Header(props) {
         return (
           <Tabs value={currentSubView} onChange={onSubViewChange} textColor="inherit">
             <Tab label="Zamówienia" value="viewOrders" />
-            <Tab label="Usuń zamówienie" value="removeOrder" />
           </Tabs>
         );
       default:

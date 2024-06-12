@@ -12,7 +12,6 @@ import AddUser from '../components/AddUser';
 import Products from '../components/Products';
 import AddProduct from '../components/AddProduct';
 import Orders from '../components/Orders';
-import RemoveOrder from '../components/RemoveOrder';
 
 function Copyright() {
   return (
@@ -209,8 +208,6 @@ export default function AdminPage() {
         switch (selectedSubView) {
           case 'viewOrders':
             return <Orders />;
-          case 'removeOrder':
-            return <RemoveOrder />;
           default:
             return <Orders />;
         }
