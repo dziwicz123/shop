@@ -3,8 +3,6 @@ import { Container, CssBaseline, Typography, Box, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import OrderSection from "../components/OrderSection";
-import UserInfo from "../components/UserInfo";
-import UserOrders from "../components/UserOrders";
 import AppNavbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
@@ -33,10 +31,6 @@ const Profile = () => {
     switch (activeSection) {
       case "orders":
         return <OrderSection />;
-      case "userInfo":
-        return <UserInfo />;
-      case "orderHistory":
-        return <UserOrders />;
       default:
         return <OrderSection />;
     }
