@@ -1,6 +1,7 @@
 package com.example.shop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,12 +32,7 @@ public class Basket {
     @Column(name = "total_price")
     private Float totalPrice;
 
-    @ManyToMany
-    @JoinTable(
-            name = "basket_products",
-            joinColumns = @JoinColumn(name = "basket_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    @JsonIgnoreProperties("baskets")
-    private List<Product> products = new ArrayList<>();
+    @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<BasketProduct> basketProducts = new ArrayList<>();
 }

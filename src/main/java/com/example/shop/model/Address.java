@@ -17,10 +17,12 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String miasto;
-    private String ulica;
-    @Column(name = "kod_pocztowy")
-    private String kodPocztowy;
+    private String city;
+
+    private String street;
+
+    @Column(name = "postal_code")
+    private String postalCode;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

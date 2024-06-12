@@ -37,8 +37,4 @@ public class Product {
 
     @Column(name = "cut_price")
     private Float cutPrice;
-
-    @ManyToMany(mappedBy = "products")
-    @JsonIgnoreProperties("products")
-    private List<Basket> baskets = new ArrayList<>();
 }
