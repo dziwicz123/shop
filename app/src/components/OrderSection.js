@@ -4,8 +4,13 @@ import { Box, Paper, Typography, Button } from '@mui/material';
 
 const OrderSection = () => {
     const [orders, setOrders] = useState([]);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
+        // Retrieve the logged-in user from session storage
+        const loggedUser = JSON.parse(sessionStorage.getItem('user'));
+        setUser(loggedUser);
+
         const fetchOrders = async () => {
             try {
                 const response = await axios.get('http://localhost:8081/api/order/all', { withCredentials: true });
@@ -18,10 +23,12 @@ const OrderSection = () => {
         fetchOrders();
     }, []);
 
+    const userOrders = orders.filter(order => order.basket.user.id === user?.id);
+
     return (
         <Box mb={4} style={{ color: '#000' }}>
             <Typography variant="h6" style={{ color: '#000' }}>Zamówienia</Typography>
-            {orders.map((order) => (
+            {userOrders.map((order) => (
                 <Paper key={order.id} elevation={3} style={{ padding: '16px', marginTop: '16px', backgroundColor: '#fff' }}>
                     <Typography variant="body1"><strong>{order.state === 'DELIVERED' ? 'Zakończone' : 'W toku'}</strong></Typography>
                     <Typography variant="body2" style={{ color: '#888888' }}>{new Date(order.orderDate).toLocaleDateString()}</Typography>

@@ -35,7 +35,43 @@ function RegisterPage() {
         if (response.ok) {
           const userData = await response.json();
           console.log("User registered successfully:", userData);
-          navigate("/"); // Redirect to HomePage
+
+          // Now perform login after registration
+          const loginResponse = await fetch("http://localhost:8081/api/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: formData.email,
+              password: formData.password,
+            }),
+          });
+
+          if (loginResponse.ok) {
+            const loginData = await loginResponse.json();
+            console.log("Login response:", loginData);
+
+            if (loginData.status && loginData.user) {
+              console.log("Storing user data to sessionStorage:", loginData.user);
+              sessionStorage.setItem('user', JSON.stringify(loginData.user)); // Store user information in sessionStorage
+              console.log("User logged in successfully:", loginData);
+
+              // Save the user's basket with state = false to sessionStorage
+              const basket = loginData.user.baskets.find(basket => basket.state === false);
+              if (basket) {
+                sessionStorage.setItem('basket', JSON.stringify(basket));
+              }
+
+              navigate("/"); // Redirect to HomePage
+            } else {
+              console.error("Failed to log in:", loginData.message);
+              // Handle error, e.g., display an error message to the user
+            }
+          } else {
+            console.error("Failed to log in:", loginResponse.statusText);
+            // Handle error
+          }
         } else {
           console.error("Failed to register user:", response.statusText);
           // Handle error, e.g., display an error message to the user

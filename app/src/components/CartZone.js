@@ -30,6 +30,10 @@ const CartZone = () => {
   };
 
   const handleDelivery = () => {
+    if (items.length === 0) {
+      alert("Your cart is empty. Please add items to your cart before proceeding to delivery.");
+      return;
+    }
     const user = sessionStorage.getItem('user');
     if (user) {
       navigate('/delivery');
