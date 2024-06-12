@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Paper, Typography, IconButton, Button } from '@mui/material';
-import { MoreVert as MoreVertIcon } from '@mui/icons-material';
+import { Box, Paper, Typography, Button } from '@mui/material';
 
 const OrderSection = () => {
     const [orders, setOrders] = useState([]);
@@ -39,13 +38,10 @@ const OrderSection = () => {
                                 />
                             ))}
                         </Box>
-                        <IconButton>
-                            <MoreVertIcon />
-                        </IconButton>
+
                     </Box>
                 </Paper>
             ))}
-            <Button style={{ marginTop: '16px', color: '#000' }}>Zobacz wszystkie</Button>
         </Box>
     );
 };

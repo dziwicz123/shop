@@ -10,9 +10,7 @@ function Cart() {
         sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}
       >
         <AppNavbar />
-        <Container
-          maxWidth="lg"
-        >
+        <Container>
         <CartZone />
         </Container>
         <AppFooter />

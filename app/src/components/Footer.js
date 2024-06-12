@@ -8,37 +8,38 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import GoogleIcon from '@mui/icons-material/Google';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import "../styles/Footer.css"
+
 const Footer = () => {
   return (
     <footer style={{ backgroundColor: '#45526e', color: 'white', textAlign: 'center' }} >
       <Container className="p-4 pb-0">
         <Row>
           <Col md={3} lg={3} xl={3} className="mt-3">
-            <h6 className="text-uppercase mb-4 font-weight-bold">Company name</h6>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+            <h6 className="text-uppercase mb-4 font-weight-bold">+ Kom</h6>
+            <p>Twoje miejsce na najwyższej jakości elektronikę i akcesoria. Oferujemy szeroki wybór produktów, aby zaspokoić wszystkie Twoje potrzeby technologiczne.</p>
           </Col>
 
           <Col md={3} lg={3} xl={3} className="mt-3">
-            <h6 className="text-uppercase mb-4 font-weight-bold">Products</h6>
-            <p>placeholder</p>
-            <p>placeholder</p>
-            <p>placeholder</p>
-            <p>placeholder</p>
+            <h6 className="text-uppercase mb-4 font-weight-bold">Produkty</h6>
+            <p>Laptopy i komputery</p>
+            <p>Smartfony</p>
+            <p>Monitory</p>
+            <p>Smartwatche</p>
           </Col>
 
           <Col md={3} lg={3} xl={3} className="mt-3">
-            <h6 className="text-uppercase mb-4 font-weight-bold">Useful links</h6>
-            <p>placeholder</p>
-            <p>placeholder</p>
-            <p>placeholder</p>
-            <p>placeholder</p>
+            <h6 className="text-uppercase mb-4 font-weight-bold">Przydatne linki</h6>
+            <p>O nas</p>
+            <p>Obsługa klienta</p>
+            <p>Regulamin</p>
+            <p>Polityka prywatności</p>
           </Col>
 
           <Col md={3} lg={3} xl={3} className="mt-3">
-            <h6 className="text-uppercase mb-4 font-weight-bold">Contact</h6>
+            <h6 className="text-uppercase mb-4 font-weight-bold">Kontakt</h6>
             <p><HomeIcon /> Łódź, Polska</p>
-            <p><EmailIcon /> info@gmail.com</p>
-            <p><PhoneIcon /> + 01 234 567 88</p>
+            <p><EmailIcon /> pluskom@gmail.com</p>
+            <p><PhoneIcon /> +48 123 456 789</p>
           </Col>
         </Row>
 
@@ -47,7 +48,7 @@ const Footer = () => {
         <Row className="d-flex align-items-center">
           <Col md={7} lg={8} className="text-center text-md-start">
             <div className="p-3">
-              © 2024 Copyright: +Kom
+              © {new Date().getFullYear()} Prawa autorskie: +Kom
             </div>
           </Col>
           <Col md={5} lg={4} className="text-center text-md-end">

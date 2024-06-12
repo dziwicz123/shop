@@ -50,7 +50,7 @@ const AddToCartModal = ({ open, handleClose }) => {
             component="h2"
             sx={{ mb: 3, color: "#333" }}
           >
-            Added to Cart!
+            Dodano do koszyka!
           </Typography>
           <Box
             sx={{ display: "flex", justifyContent: "center", gap: 2, mt: 2 }}
@@ -70,7 +70,7 @@ const AddToCartModal = ({ open, handleClose }) => {
               }}
               onClick={handleClose}
             >
-              Continue Shopping
+              Kontynuj zakupy
             </Button>
             <Button
               variant="contained"
@@ -86,7 +86,7 @@ const AddToCartModal = ({ open, handleClose }) => {
                 window.location.href = "/cart";
               }}
             >
-              Go to Cart
+              Przejdź do koszyka
             </Button>
           </Box>
         </Box>
