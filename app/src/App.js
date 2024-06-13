@@ -13,7 +13,7 @@ import OrderSummaryPage from "./pages/Summary";
 import AdminPage from "./pages/AdminPage";
 import PaymentSuccess from "./pages/Succes";
 import PaymentFailure from "./pages/Failure";
-
+import Terms from './pages/Terms';
 function App() {
   return (
       <Router>
@@ -31,6 +31,7 @@ function App() {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/success" element={<PaymentSuccess />} />
             <Route path="/cancel" element={<PaymentFailure />} />
+            <Route path="/terms" element={<Terms/>} />
         </Routes>
       </Router>
   );
