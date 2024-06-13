@@ -4,7 +4,7 @@ import "../styles/LoginPage.css";
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Card, Form } from "react-bootstrap";
-
+import Button from "@mui/material/Button";
 function LoginPage() {
   const [formData, setFormData] = useState({
     email: "",
@@ -68,19 +68,19 @@ function LoginPage() {
                 style={{ borderRadius: "1rem", maxWidth: "400px" }}
             >
               <Card.Body className="p-5 d-flex flex-column align-items-center mx-auto w-100">
-                <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
+                <h2 className="fw-bold mb-2 text-uppercase">Zaloguj się</h2>
                 <p className="text-white-50 mb-5">
-                  Please enter your login and password!
+                  Podaj swój login i hasło!
                 </p>
 
                 <Form onSubmit={handleSubmit} className="w-100">
                   <Form.Group className="mb-4" controlId="formEmail">
                     <Form.Label className={`text-white ${formData.email ? "label-visible" : "label-fade"}`}>
-                      Email Address
+                      Email
                     </Form.Label>
                     <Form.Control
                         type="email"
-                        placeholder="Email Address"
+                        placeholder="Email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
@@ -89,17 +89,17 @@ function LoginPage() {
                         className="mdb-input"
                     />
                     <Form.Control.Feedback type="invalid">
-                      Please enter a valid email address.
+                      Podaj prawidłowy adres email.
                     </Form.Control.Feedback>
                   </Form.Group>
 
                   <Form.Group className="mb-4" controlId="formPassword">
                     <Form.Label className={`text-white ${formData.password ? "label-visible" : "label-fade"}`}>
-                      Password
+                      Hasło
                     </Form.Label>
                     <Form.Control
                         type="password"
-                        placeholder="Password"
+                        placeholder="Hasło"
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
@@ -108,24 +108,28 @@ function LoginPage() {
                         className="mdb-input"
                     />
                     <Form.Control.Feedback type="invalid">
-                      Password is required.
+                      Hasło jest wymagane.
                     </Form.Control.Feedback>
                   </Form.Group>
-
-                  <p className="small mb-3 pb-lg-2">
-                    <a className="text-white-50" href="#!">
-                      Forgot password?
-                    </a>
-                  </p>
                   <div className="d-grid gap-2 col-6 mx-auto">
-                    <button className="btn-login" type="submit">Login</button>
+                  <Button
+                        type="submit"
+                        sx={{
+                          color: "#FFFFFF",
+                          borderRadius: "4px",
+                          border: "1px solid #FFFFFF",
+                          fontSize: "1rem",
+                        }}
+                    >
+                      Zaloguj się
+                    </Button>
                   </div>
                 </Form>
                 <div style={{ textAlign: "center", marginTop: "1rem" }}>
                   <p className="mb-0">
-                    Don't have an account?{" "}
+                      Nie masz konta{" "}
                     <Link to="/register" className="text-white-50 fw-bold">
-                      Sign Up
+                      Zarejestruj się
                     </Link>
                   </p>
                 </div>

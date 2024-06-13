@@ -11,6 +11,8 @@ import SearchResults from './pages/SearchResults';
 import Delivery from "./pages/DeliveryPage";
 import OrderSummaryPage from "./pages/Summary";
 import AdminPage from "./pages/AdminPage";
+import PaymentSuccess from "./pages/Succes";
+import PaymentFailure from "./pages/Failure";
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
             <Route path="/delivery" element={<Delivery />} />
             <Route path="/summary" element={<OrderSummaryPage />} />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/success" element={<PaymentSuccess />} />
+            <Route path="/cancel" element={<PaymentFailure />} />
         </Routes>
       </Router>
   );
