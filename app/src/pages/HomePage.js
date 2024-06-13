@@ -4,6 +4,7 @@ import AppNavbar from "../components/Navbar";
 import AppFooter from "../components/Footer";
 import ProductZone from "../components/ProductZone";
 import Slider from "../components/Slider";
+import CookiesPopup from "../components/CookiesPopup";
 
 function HomePage() {
     return (
@@ -22,6 +23,7 @@ function HomePage() {
                 >
                     <Slider />
                     <ProductZone />
+                    <CookiesPopup/>
                 </Container>
                 <AppFooter />
             </Box>

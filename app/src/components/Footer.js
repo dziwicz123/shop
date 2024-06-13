@@ -1,22 +1,33 @@
-import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import HomeIcon from '@mui/icons-material/Home';
-import EmailIcon from '@mui/icons-material/Email';
-import PhoneIcon from '@mui/icons-material/Phone';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import GoogleIcon from '@mui/icons-material/Google';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import "../styles/Footer.css"
+import React from "react";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import HomeIcon from "@mui/icons-material/Home";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import GoogleIcon from "@mui/icons-material/Google";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import { Link } from "react-router-dom";
+import "../styles/Footer.css";
 
 const Footer = () => {
   return (
-    <footer style={{ backgroundColor: '#45526e', color: 'white', textAlign: 'center' }} >
+    <footer
+      style={{
+        backgroundColor: "#45526e",
+        color: "white",
+        textAlign: "center",
+      }}
+    >
       <Container className="p-4 pb-0">
         <Row>
           <Col md={3} lg={3} xl={3} className="mt-3">
             <h6 className="text-uppercase mb-4 font-weight-bold">+ Kom</h6>
-            <p>Twoje miejsce na najwyższej jakości elektronikę i akcesoria. Oferujemy szeroki wybór produktów, aby zaspokoić wszystkie Twoje potrzeby technologiczne.</p>
+            <p>
+              Twoje miejsce na najwyższej jakości elektronikę i akcesoria.
+              Oferujemy szeroki wybór produktów, aby zaspokoić wszystkie Twoje
+              potrzeby technologiczne.
+            </p>
           </Col>
 
           <Col md={3} lg={3} xl={3} className="mt-3">
@@ -28,18 +39,31 @@ const Footer = () => {
           </Col>
 
           <Col md={3} lg={3} xl={3} className="mt-3">
-            <h6 className="text-uppercase mb-4 font-weight-bold">Przydatne linki</h6>
+            <h6 className="text-uppercase mb-4 font-weight-bold">
+              Przydatne linki
+            </h6>
             <p>O nas</p>
             <p>Obsługa klienta</p>
-            <p>Regulamin</p>
+            <Link
+              to="/terms"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <p>Regulamin</p>
+            </Link>
             <p>Polityka prywatności</p>
           </Col>
 
           <Col md={3} lg={3} xl={3} className="mt-3">
             <h6 className="text-uppercase mb-4 font-weight-bold">Kontakt</h6>
-            <p><HomeIcon /> Łódź, Polska</p>
-            <p><EmailIcon /> pluskom@gmail.com</p>
-            <p><PhoneIcon /> +48 123 456 789</p>
+            <p>
+              <HomeIcon /> Łódź, Polska
+            </p>
+            <p>
+              <EmailIcon /> pluskom@gmail.com
+            </p>
+            <p>
+              <PhoneIcon /> +48 123 456 789
+            </p>
           </Col>
         </Row>
 
@@ -52,10 +76,18 @@ const Footer = () => {
             </div>
           </Col>
           <Col md={5} lg={4} className="text-center text-md-end">
-            <Button variant="outline-light" className="btn-floating m-1"><FacebookIcon /></Button>
-            <Button variant="outline-light" className="btn-floating m-1"><TwitterIcon /></Button>
-            <Button variant="outline-light" className="btn-floating m-1"><GoogleIcon /></Button>
-            <Button variant="outline-light" className="btn-floating m-1"><InstagramIcon /></Button>
+            <Button variant="outline-light" className="btn-floating m-1">
+              <FacebookIcon />
+            </Button>
+            <Button variant="outline-light" className="btn-floating m-1">
+              <TwitterIcon />
+            </Button>
+            <Button variant="outline-light" className="btn-floating m-1">
+              <GoogleIcon />
+            </Button>
+            <Button variant="outline-light" className="btn-floating m-1">
+              <InstagramIcon />
+            </Button>
           </Col>
         </Row>
       </Container>
