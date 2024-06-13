@@ -12,6 +12,8 @@ import Delivery from "./pages/DeliveryPage";
 import OrderSummaryPage from "./pages/Summary";
 import AdminPage from "./pages/AdminPage";
 import StripeCheckout from "./pages/StripeCheckout"
+import PaymentSuccess from "./pages/Succes";
+import PaymentFailure from "./pages/Failure";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
             <Route path="/summary" element={<OrderSummaryPage />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/checkout" element={<StripeCheckout />} />
+            <Route path="/success" element={<PaymentSuccess />} />
+            <Route path="/cancel" element={<PaymentFailure />} />
         </Routes>
       </Router>
   );
