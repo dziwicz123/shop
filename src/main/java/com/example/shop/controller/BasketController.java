@@ -46,4 +46,23 @@ public class BasketController {
 
         return ResponseEntity.ok(basket);
     }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Basket> getUserNewBasket(@PathVariable Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (!userOptional.isPresent()) {
+            return ResponseEntity.status(404).body(null);
+        }
+
+        User user = userOptional.get();
+        Basket newBasket = basketRepository.findByUserAndState(user, false);
+
+        if (newBasket == null) {
+            return ResponseEntity.status(404).body(null);
+        }
+
+        return ResponseEntity.ok(newBasket);
+    }
+
+
 }

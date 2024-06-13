@@ -57,7 +57,7 @@ public class OrderDetailsController {
         orderDetails.setOrderDate(LocalDateTime.now());
         orderDetails.setShipDate(null); // or set the ship date based on your logic
         orderDetails.setState(OrderState.PENDING); // or set the appropriate state
-        orderDetails.setType(PaymentType.CASH_ON_DELIVERY); // or set the appropriate payment type
+        orderDetails.setType(PaymentStatus.UNPAID); // or set the appropriate payment type
         orderDetails.setAddress(address);
 
         // Save order details

@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Grid, FormHelperText } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('pk_test_51PQtgQ03dG9DcKmUHYPxw5W8tRpSdhpIuHvWH5KRsSi7WXxvD32zFrpWTM43eBLZJfWWh7vbzrJi9rrO2BviI6pK00bBqaArZu'); // Replace with your Stripe public key
 
 const DeliveryForm = () => {
   const [form, setForm] = useState({
@@ -60,19 +63,24 @@ const DeliveryForm = () => {
       try {
         // Retrieve basket, cart, and user from session storage
         const basket = JSON.parse(sessionStorage.getItem('basket'));
-        const cart = JSON.parse(sessionStorage.getItem('cart')); // Assuming cart contains product IDs and quantities
+        const cart = JSON.parse(sessionStorage.getItem('cart')); // Assuming cart contains product IDs, quantities, and prices
         const user = JSON.parse(sessionStorage.getItem('user'));
 
         if (basket && basket.id && cart && cart.length > 0 && user && user.email) {
+          // Calculate total price
+          const totalPrice = cart.reduce((total, item) => total + (item.quantity * item.price), 0);
+
           // Create payload
           const payload = {
             basketId: basket.id,
             address: form,
             products: cart.map(item => ({
               productId: item.id,
-              quantity: item.quantity
+              quantity: item.quantity,
+              price: item.price
             })),
-            email: user.email
+            email: user.email,
+            totalPrice: totalPrice
           };
 
           // Send request to create order details
@@ -80,18 +88,37 @@ const DeliveryForm = () => {
 
           console.log('Order Details created:', response.data);
 
-          // Clear cart
+          // Clear cart and basket
           sessionStorage.removeItem('cart');
+          sessionStorage.removeItem('basket');
 
-          // Fetch the new basket for the user from session storage
-          const newBasketResponse = JSON.parse(sessionStorage.getItem('user')).baskets.find(basket => basket.state === false);
-          if (newBasketResponse) {
-            sessionStorage.setItem('basket', JSON.stringify(newBasketResponse));
+          // Fetch the new basket for the user from the database
+          const newBasketResponse = await axios.get(`http://localhost:8081/api/basket/user/${user.id}`, { withCredentials: true });
+
+          if (newBasketResponse.data) {
+            sessionStorage.setItem('basket', JSON.stringify(newBasketResponse.data));
           } else {
             console.error('No new basket found for the user');
           }
 
-          navigate('/checkout');
+          // Create Stripe payment session
+          const stripe = await stripePromise;
+          const stripeResponse = await axios.post('http://localhost:8081/api/payment/create-checkout-session', {
+            amount: totalPrice,
+            currency: 'pln',
+          });
+
+
+          const sessionId = stripeResponse.data.sessionId;
+
+          // Redirect to Stripe Checkout
+          const { error } = await stripe.redirectToCheckout({
+            sessionId: sessionId,
+          });
+
+          if (error) {
+            console.error('Error redirecting to Stripe Checkout:', error);
+          }
         } else {
           console.error('No basket, products, or user email found in session storage');
         }

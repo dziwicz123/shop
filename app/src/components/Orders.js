@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Select, MenuItem } from '@mui/material';
+import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Select, MenuItem, TableSortLabel } from '@mui/material';
 
 function Orders() {
     const [orders, setOrders] = useState([]);
     const [editingStatus, setEditingStatus] = useState({});
+    const [sortOrder, setSortOrder] = useState('asc');
 
     useEffect(() => {
         const fetchOrders = async () => {
             try {
                 const response = await axios.get('http://localhost:8081/api/order/all', { withCredentials: true });
-                setOrders(response.data);
+                const sortedData = sortData(response.data, 'asc');
+                setOrders(sortedData);
             } catch (error) {
                 console.error('Error fetching orders:', error);
             }
@@ -18,6 +20,23 @@ function Orders() {
 
         fetchOrders();
     }, []);
+
+    const sortData = (data, order) => {
+        return data.sort((a, b) => {
+            if (order === 'asc') {
+                return a.basket.id - b.basket.id;
+            } else {
+                return b.basket.id - a.basket.id;
+            }
+        });
+    };
+
+    const handleSort = () => {
+        const newSortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+        const sortedData = sortData([...orders], newSortOrder);
+        setSortOrder(newSortOrder);
+        setOrders(sortedData);
+    };
 
     const handleStatusChange = async (id, newState) => {
         try {
@@ -37,7 +56,6 @@ function Orders() {
         }
     };
 
-
     const handleSelectChange = (id, event) => {
         const newState = event.target.value;
         setEditingStatus({ ...editingStatus, [id]: newState });
@@ -53,7 +71,15 @@ function Orders() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Koszyk ID</TableCell>
+                            <TableCell sortDirection={sortOrder}>
+                                <TableSortLabel
+                                    active={true}
+                                    direction={sortOrder}
+                                    onClick={handleSort}
+                                >
+                                    Koszyk ID
+                                </TableSortLabel>
+                            </TableCell>
                             <TableCell>Całkowita cena</TableCell>
                             <TableCell>Data zamówienia</TableCell>
                             <TableCell>Data wysyłki</TableCell>

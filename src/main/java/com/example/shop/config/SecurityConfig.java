@@ -21,8 +21,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .cors()
-                .and()
+                .cors().and()
                 .csrf().disable()
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
@@ -36,6 +35,7 @@ public class SecurityConfig {
                                 "/api/products/**",
                                 "/api/products/search",
                                 "/api/basket",
+                                "/api/basket/user/**",
                                 "/api/basket/addProduct",
                                 "/api/basket/add",
                                 "/api/order",
@@ -43,8 +43,8 @@ public class SecurityConfig {
                                 "/api/order/update/**",
                                 "/api/users",
                                 "/api/users/**",
-                                "/api/stripe",
-                                "/api/stripe/create-checkout-session"
+                                "/api/payment",
+                                "/api/payment/create-checkout-session"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
