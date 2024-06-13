@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StripeService {
 
-    @Value("${sk_test_51PQtgQ03dG9DcKmUMxFhdgmZL5Sisr6LDVdIJ6Ommmsa2jnQoo8GsRbqQjBolgi5Lzy3KSUSQee3ocFs5rI5Xl4A001wi47t6e}")
+    @Value("${stripe.secret.key}")
     private String secretKey;
 
     public StripeService() {
@@ -27,7 +27,7 @@ public class StripeService {
                         .setQuantity(1L)
                         .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
                                 .setCurrency("usd")
-                                .setUnitAmount(1L) // $0.01
+                                .setUnitAmount(1L) // $10.00
                                 .setProductData(SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                         .setName("Test Product")
                                         .build())
