@@ -91,8 +91,7 @@ const DeliveryForm = () => {
             console.error('No new basket found for the user');
           }
 
-          // Redirect to home page
-          navigate('/');
+          navigate('/checkout');
         } else {
           console.error('No basket, products, or user email found in session storage');
         }

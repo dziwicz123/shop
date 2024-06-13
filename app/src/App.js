@@ -11,6 +11,7 @@ import SearchResults from './pages/SearchResults';
 import Delivery from "./pages/DeliveryPage";
 import OrderSummaryPage from "./pages/Summary";
 import AdminPage from "./pages/AdminPage";
+import StripeCheckout from "./pages/StripeCheckout"
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
             <Route path="/delivery" element={<Delivery />} />
             <Route path="/summary" element={<OrderSummaryPage />} />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/checkout" element={<StripeCheckout />} />
         </Routes>
       </Router>
   );

@@ -42,7 +42,9 @@ public class SecurityConfig {
                                 "/api/order/**",
                                 "/api/order/update/**",
                                 "/api/users",
-                                "/api/users/**"
+                                "/api/users/**",
+                                "/api/stripe",
+                                "/api/stripe/create-checkout-session"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
