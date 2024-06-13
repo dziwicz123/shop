@@ -63,6 +63,7 @@ const DeliveryForm = () => {
       try {
         // Retrieve basket, cart, and user from session storage
         const basket = JSON.parse(sessionStorage.getItem('basket'));
+        sessionStorage.setItem('basketId', basket.id); // Store basket ID in session storage
         const cart = JSON.parse(sessionStorage.getItem('cart')); // Assuming cart contains product IDs, quantities, and prices
         const user = JSON.parse(sessionStorage.getItem('user'));
 

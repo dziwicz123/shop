@@ -27,7 +27,7 @@ public class StripeService {
                                 .setPriceData(
                                         SessionCreateParams.LineItem.PriceData.builder()
                                                 .setCurrency(currency)
-                                                .setUnitAmount(amount)
+                                                .setUnitAmount(amount*100)
                                                 .setProductData(
                                                         SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                                                 .setName("Total Order")
