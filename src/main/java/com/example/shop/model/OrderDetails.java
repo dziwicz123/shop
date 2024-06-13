@@ -33,7 +33,7 @@ public class OrderDetails {
     private OrderState state;
 
     @Enumerated(EnumType.STRING)
-    private PaymentType type;
+    private PaymentStatus type;
 
     @ManyToOne
     @JoinColumn(name = "address_id")
