@@ -105,6 +105,31 @@ public class OrderDetailsController {
         return ResponseEntity.ok(orderDetails);
     }
 
+    @PatchMapping("/update-payment-status/{basketId}")
+    public ResponseEntity<?> updatePaymentStatus(@PathVariable Long basketId, @RequestBody Map<String, String> payload) {
+        String paymentStatus = payload.get("paymentStatus");
+        Optional<Basket> optionalBasket = basketRepository.findById(basketId);
+
+        if (!optionalBasket.isPresent()) {
+            return ResponseEntity.status(404).body("Basket not found");
+        }
+
+        Basket basket = optionalBasket.get();
+        OrderDetails orderDetails = orderDetailsRepository.findByBasket(basket);
+
+        if (orderDetails == null) {
+            return ResponseEntity.status(404).body("OrderDetails not found for the given basket");
+        }
+
+        if (paymentStatus != null && paymentStatus.equals("PAID")) {
+            orderDetails.setType(PaymentStatus.PAID);
+            orderDetailsRepository.save(orderDetails);
+            return ResponseEntity.ok(orderDetails);
+        } else {
+            return ResponseEntity.status(400).body("Invalid payment status");
+        }
+    }
+
     @GetMapping("/all")
     public List<OrderDetails> getAllOrders() {
         return orderDetailsRepository.findAll();
