@@ -2,6 +2,7 @@ package com.example.shop.service;
 
 import com.example.shop.model.Basket;
 import com.example.shop.model.User;
+import com.example.shop.model.UserType;
 import com.example.shop.repo.BasketRepository;
 import com.example.shop.repo.UserRepository;
 import jakarta.transaction.Transactional;
@@ -37,6 +38,7 @@ public class UserService {
 
     public User createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setUserType(UserType.USER);
         User savedUser = userRepository.save(user);
 
         // Create and save a basket for the new user

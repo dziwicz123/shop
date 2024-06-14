@@ -77,7 +77,7 @@ function SearchResults() {
                             <>
                                 <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", mb: 2 }}>
                                     <Typography variant="h3" paragraph>
-                                        Search Results for "{query}"
+                                        Wyniki wyszukiwania dla "{query}"
                                     </Typography>
                                     <Typography sx={{ color: "gray", ml: 2 }} variant="h5" paragraph>
                                         ({products.length} results)
