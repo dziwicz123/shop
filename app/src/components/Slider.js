@@ -11,8 +11,8 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const images = [
   {
-    label: 'Logi Play Days',
-    imgPath: 'https://cdn.evergage.com/promotions/xkomspzoo/xkom/fPUpN/UvMeo.jpg',
+    label: 'Laptopy, tablety i GSM w promocji',
+    imgPath: 'https://cdn.evergage.com/promotions/xkomspzoo/xkom/iiS3C/vq4IG.jpg',
     description: '6/128GB Midnight Black - najlepsza cena'
   },
   {
@@ -21,8 +21,8 @@ const images = [
     description: '6/128GB Midnight Black - najlepsza cena'
   },
   {
-    label: 'Smartwatche Huami',
-    imgPath: 'https://cdn.evergage.com/promotions/xkomspzoo/xkom/E2Hb6/ohuEW.jpg',
+    label: 'Letnia oferta Xiaomi',
+    imgPath: 'https://cdn.x-kom.pl/i/img/banners/1140x250,,9257735184e84b2f8806c5c467456cef.jpg?filters=trim',
     description: '6/128GB Midnight Black - najlepsza cena'
   },
   {

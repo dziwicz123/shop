@@ -20,7 +20,7 @@ public class UserController {
     @GetMapping("/api")
     public ApiResponse homeController() {
         ApiResponse res = new ApiResponse();
-        res.setMessage("welcome to api");
+        res.setMessage("Welcome to API");
         res.setStatus(true);
         return res;
     }
@@ -40,6 +40,7 @@ public class UserController {
             response.setMessage("Login successful");
             response.setStatus(true);
             response.setUser(user); // Set user in response
+
             return ResponseEntity.ok(response);
         } else {
             response.setMessage("Invalid email or password");

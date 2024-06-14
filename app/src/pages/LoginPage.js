@@ -5,11 +5,14 @@ import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Card, Form } from "react-bootstrap";
 import Button from "@mui/material/Button";
+
 function LoginPage() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -22,6 +25,9 @@ function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
+    setErrorMessage("");
+
     try {
       const response = await fetch("http://localhost:8081/api/login", {
         method: "POST",
@@ -30,32 +36,24 @@ function LoginPage() {
         },
         body: JSON.stringify(formData),
       });
-      if (response.ok) {
-        const res = await response.json();
-        console.log("Login response:", res);
-        if (res.status && res.user) {
-          console.log("Storing user data to sessionStorage:", res.user);
-          sessionStorage.setItem('user', JSON.stringify(res.user)); // Store user information in sessionStorage
-          console.log("User logged in successfully:", res);
 
-          // Save the user's basket with state = false to sessionStorage
-          const basket = res.user.baskets.find(basket => basket.state === false);
-          if (basket) {
-            sessionStorage.setItem('basket', JSON.stringify(basket));
-          }
-
-          navigate("/");
-        } else {
-          console.error("Failed to log in:", res.message);
-          // Display error message to user
+      const res = await response.json();
+      if (response.ok && res.status && res.user) {
+        sessionStorage.setItem('user', JSON.stringify(res.user));
+        const basket = res.user.baskets.find(basket => basket && basket.state === false);
+        if (basket) {
+          sessionStorage.setItem('basket', JSON.stringify(basket));
         }
+
+        navigate(res.user.userType === 'ADMIN' ? "/admin" : "/");
       } else {
-        console.error("Failed to log in:", response.statusText);
-        // Handle error
+        setErrorMessage(res.message || "Failed to log in. Please try again.");
       }
     } catch (error) {
       console.error("Error logging in:", error);
-      // Handle connection error or other errors
+      setErrorMessage("An error occurred while trying to log in. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,9 +67,9 @@ function LoginPage() {
             >
               <Card.Body className="p-5 d-flex flex-column align-items-center mx-auto w-100">
                 <h2 className="fw-bold mb-2 text-uppercase">Zaloguj się</h2>
-                <p className="text-white-50 mb-5">
-                  Podaj swój login i hasło!
-                </p>
+                <p className="text-white-50 mb-5">Podaj swój login i hasło!</p>
+
+                {errorMessage && <p className="text-danger">{errorMessage}</p>}
 
                 <Form onSubmit={handleSubmit} className="w-100">
                   <Form.Group className="mb-4" controlId="formEmail">
@@ -112,7 +110,7 @@ function LoginPage() {
                     </Form.Control.Feedback>
                   </Form.Group>
                   <div className="d-grid gap-2 col-6 mx-auto">
-                  <Button
+                    <Button
                         type="submit"
                         sx={{
                           color: "#FFFFFF",
@@ -120,14 +118,15 @@ function LoginPage() {
                           border: "1px solid #FFFFFF",
                           fontSize: "1rem",
                         }}
+                        disabled={isLoading}
                     >
-                      Zaloguj się
+                      {isLoading ? "Logging in..." : "Zaloguj się"}
                     </Button>
                   </div>
                 </Form>
                 <div style={{ textAlign: "center", marginTop: "1rem" }}>
                   <p className="mb-0">
-                      Nie masz konta{" "}
+                    Nie masz konta{" "}
                     <Link to="/register" className="text-white-50 fw-bold">
                       Zarejestruj się
                     </Link>
