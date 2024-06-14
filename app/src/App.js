@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from './AuthContext'; // Import AuthProvider
+import ProtectedRoute from './ProtectedRoute'; // Import ProtectedRoute
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
@@ -14,27 +16,34 @@ import AdminPage from "./pages/AdminPage";
 import PaymentSuccess from "./pages/Succes";
 import PaymentFailure from "./pages/Failure";
 import Terms from './pages/Terms';
+
 function App() {
-  return (
-      <Router>
-        <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/product/:productId" element={<ProductPage />} />
-            <Route path="/category/:categoryId" element={<CategoryPage />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/search" element={<SearchResults />} />
-            <Route path="/delivery" element={<Delivery />} />
-            <Route path="/summary" element={<OrderSummaryPage />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/success" element={<PaymentSuccess />} />
-            <Route path="/cancel" element={<PaymentFailure />} />
-            <Route path="/terms" element={<Terms/>} />
-        </Routes>
-      </Router>
-  );
+    return (
+        <AuthProvider>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/product/:productId" element={<ProductPage />} />
+                    <Route path="/category/:categoryId" element={<CategoryPage />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/search" element={<SearchResults />} />
+                    <Route path="/delivery" element={<Delivery />} />
+                    <Route path="/summary" element={<OrderSummaryPage />} />
+                    <Route path="/success" element={<PaymentSuccess />} />
+                    <Route path="/cancel" element={<PaymentFailure />} />
+                    <Route path="/terms" element={<Terms />} />
+                    <Route path="/admin" element={
+                        <ProtectedRoute requiredUserType="ADMIN">
+                            <AdminPage />
+                        </ProtectedRoute>
+                    } />
+                </Routes>
+            </Router>
+        </AuthProvider>
+    );
 }
 
 export default App;
